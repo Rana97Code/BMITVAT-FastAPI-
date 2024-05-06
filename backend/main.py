@@ -11,10 +11,7 @@ def include_router(app):
     app.include_router(auth_router)
     app.include_router(user_router)
     app.include_router(unit_router)
-    # app.include_router(user_roll_router)
-    # app.include_router(user_access_router)
-    # app.include_router(customer_router)
-    # app.include_router(unit_router)
+
 
 origins = [
         "http://localhost:5173",
@@ -32,6 +29,16 @@ def start_application():
         allow_methods=["*"],
         allow_headers=["*"],
     )
+    # Custom middleware for security headers
+    @app.middleware("http")
+    async def add_security_headers(request, call_next):
+        response = await call_next(request)
+        response.headers["Content-Security-Policy"] = "default-src 'self'"
+        response.headers["X-Frame-Options"] = "DENY"
+        response.headers["X-XSS-Protection"] = "1; mode=block"
+        response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+        return response
+    
     return app
 
 app = start_application()
