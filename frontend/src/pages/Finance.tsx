@@ -425,7 +425,7 @@ const Finance = () => {
                             </div>
                         </div>
                         <div className="flex items-center mt-5">
-                            <div className="text-3xl font-bold ltr:mr-3 rtl:ml-3"> $170.46 </div>
+                            <div className="text-3xl font-bold ltr:mr-3 rtl:ml-3"> Tk170.46 </div>
                             <div className="badge bg-white/30">+ 2.35% </div>
                         </div>
                         <div className="flex items-center font-semibold mt-5">
@@ -574,7 +574,7 @@ const Finance = () => {
                                     <ReactApexChart series={ethereum.series} options={ethereum.options} type="line" height={45} />
                                 </div>
                                 <div className="flex justify-between items-center font-bold text-base">
-                                    $21,000 <span className="text-danger font-normal text-sm">-1.25%</span>
+                                    Tk21,000 <span className="text-danger font-normal text-sm">-1.25%</span>
                                 </div>
                             </div>
                             {/*  Litecoin*/}
@@ -592,7 +592,7 @@ const Finance = () => {
                                     <ReactApexChart series={litecoin.series} options={litecoin.options} type="line" height={45} />
                                 </div>
                                 <div className="flex justify-between items-center font-bold text-base">
-                                    $11,657 <span className="text-success font-normal text-sm">+0.25%</span>
+                                    Tk11,657 <span className="text-success font-normal text-sm">+0.25%</span>
                                 </div>
                             </div>
                         </div>
@@ -621,7 +621,7 @@ const Finance = () => {
                                     <ReactApexChart series={binance.series} options={binance.options} type="line" height={45} />
                                 </div>
                                 <div className="flex justify-between items-center font-bold text-base">
-                                    $21,000 <span className="text-danger font-normal text-sm">-1.25%</span>
+                                    Tk21,000 <span className="text-danger font-normal text-sm">-1.25%</span>
                                 </div>
                             </div>
                             {/*  Tether  */}
@@ -639,7 +639,7 @@ const Finance = () => {
                                     <ReactApexChart series={tether.series} options={tether.options} type="line" height={45} />
                                 </div>
                                 <div className="flex justify-between items-center font-bold text-base">
-                                    $20,000 <span className="text-success font-normal text-sm">+0.25%</span>
+                                    Tk20,000 <span className="text-success font-normal text-sm">+0.25%</span>
                                 </div>
                             </div>
                             {/*  Solana */}
@@ -657,7 +657,7 @@ const Finance = () => {
                                     <ReactApexChart series={solana.series} options={solana.options} type="line" height={45} />
                                 </div>
                                 <div className="flex justify-between items-center font-bold text-base">
-                                    $21,000 <span className="text-danger font-normal text-sm">-1.25%</span>
+                                    Tk21,000 <span className="text-danger font-normal text-sm">-1.25%</span>
                                 </div>
                             </div>
                         </div>
@@ -697,15 +697,15 @@ const Finance = () => {
                                 <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                                     <div>
                                         <div className="text-primary">Card Limit</div>
-                                        <div className="mt-2 font-semibold text-2xl">$50,000.00</div>
+                                        <div className="mt-2 font-semibold text-2xl">Tk50,000.00</div>
                                     </div>
                                     <div>
                                         <div className="text-primary">Spent</div>
-                                        <div className="mt-2 font-semibold text-2xl">$15,000.00</div>
+                                        <div className="mt-2 font-semibold text-2xl">Tk15,000.00</div>
                                     </div>
                                     <div>
                                         <div className="text-primary">Minimum</div>
-                                        <div className="mt-2 font-semibold text-2xl">$2,500.00</div>
+                                        <div className="mt-2 font-semibold text-2xl">Tk2,500.00</div>
                                     </div>
                                 </div>
                             </div>
@@ -742,11 +742,11 @@ const Finance = () => {
                                     </div>
                                     <div>
                                         <div className="text-primary">Spent</div>
-                                        <div className="mt-2 font-semibold text-2xl">$30,500.00</div>
+                                        <div className="mt-2 font-semibold text-2xl">Tk30,500.00</div>
                                     </div>
                                     <div>
                                         <div className="text-primary">Minimum</div>
-                                        <div className="mt-2 font-semibold text-2xl">$8,000.00</div>
+                                        <div className="mt-2 font-semibold text-2xl">Tk8,000.00</div>
                                     </div>
                                 </div>
                             </div>
@@ -772,7 +772,7 @@ const Finance = () => {
                                         <td className="font-semibold">#01</td>
                                         <td className="whitespace-nowrap">Oct 08, 2021</td>
                                         <td className="whitespace-nowrap">Eric Page</td>
-                                        <td>$1,358.75</td>
+                                        <td>Tk1,358.75</td>
                                         <td className="text-center">
                                             <span className="badge bg-success/20 text-success rounded-full hover:top-0">Completed</span>
                                         </td>
@@ -781,7 +781,7 @@ const Finance = () => {
                                         <td className="font-semibold">#02</td>
                                         <td className="whitespace-nowrap">Dec 18, 2021</td>
                                         <td className="whitespace-nowrap">Nita Parr</td>
-                                        <td>-$1,042.82</td>
+                                        <td>-Tk1,042.82</td>
                                         <td className="text-center">
                                             <span className="badge bg-info/20 text-info rounded-full hover:top-0">In Process</span>
                                         </td>
@@ -790,7 +790,7 @@ const Finance = () => {
                                         <td className="font-semibold">#03</td>
                                         <td className="whitespace-nowrap">Dec 25, 2021</td>
                                         <td className="whitespace-nowrap">Carl Bell</td>
-                                        <td>$1,828.16</td>
+                                        <td>Tk1,828.16</td>
                                         <td className="text-center">
                                             <span className="badge bg-danger/20 text-danger rounded-full hover:top-0">Pending</span>
                                         </td>
@@ -799,7 +799,7 @@ const Finance = () => {
                                         <td className="font-semibold">#04</td>
                                         <td className="whitespace-nowrap">Nov 29, 2021</td>
                                         <td className="whitespace-nowrap">Dan Hart</td>
-                                        <td>$1,647.55</td>
+                                        <td>Tk1,647.55</td>
                                         <td className="text-center">
                                             <span className="badge bg-success/20 text-success rounded-full hover:top-0">Completed</span>
                                         </td>
@@ -808,7 +808,7 @@ const Finance = () => {
                                         <td className="font-semibold">#05</td>
                                         <td className="whitespace-nowrap">Nov 24, 2021</td>
                                         <td className="whitespace-nowrap">Jake Ross</td>
-                                        <td>$927.43</td>
+                                        <td>Tk927.43</td>
                                         <td className="text-center">
                                             <span className="badge bg-success/20 text-success rounded-full hover:top-0">Completed</span>
                                         </td>
@@ -817,7 +817,7 @@ const Finance = () => {
                                         <td className="font-semibold">#06</td>
                                         <td className="whitespace-nowrap">Jan 26, 2022</td>
                                         <td className="whitespace-nowrap">Anna Bell</td>
-                                        <td>$250.00</td>
+                                        <td>Tk250.00</td>
                                         <td className="text-center">
                                             <span className="badge bg-info/20 text-info rounded-full hover:top-0">In Process</span>
                                         </td>

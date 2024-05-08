@@ -35,7 +35,7 @@ const index = () => {
             // const bearer1 = JSON.parse(token);
         const headers= { Authorization: `Bearer ${bearer}` }
 
-        axios.get('http://localhost:8000/bmitvat/api/allunits',{headers})
+        axios.get('http://127.0.0.1:8000/bmitvat/api/allunits',{headers})
             .then((response) => {
                 setInitialRecords(response.data);
 
@@ -246,7 +246,7 @@ const index = () => {
         const headers= { Authorization: `Bearer ${bearer}`,'content-type': 'multipart/form-data' }
         // console.log(headers);
 
-      await axios.post('http://localhost:8080/bmitvat/api/unit/upload_unit_excel', file, {headers})
+      await axios.post('http://127.0.0.1:8000/bmitvat/api/unit/upload_unit_excel', file, {headers})
       .then(function (response){
         console.log("Data Inserted");
         if(response.status==200){

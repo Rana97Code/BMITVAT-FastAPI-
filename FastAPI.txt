@@ -23,8 +23,10 @@ for authentication need to instal
 >>pip install passlib
 >>pip install email-validator
 >>pip install bcrypt
+>>pip install python-jose
+>>pip install pylint   // for code security
 
-
+For all install >> pip install -r requirements.txt
 
 			********** Run App **********
 run app>> uvicorn main:app --reload

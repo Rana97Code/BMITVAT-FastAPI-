@@ -15,7 +15,7 @@ import IconShoppingCart from '../components/Icon/IconShoppingCart';
 import IconArrowLeft from '../components/Icon/IconArrowLeft';
 import IconCashBanknotes from '../components/Icon/IconCashBanknotes';
 import IconUser from '../components/Icon/IconUser';
-import IconNetflix from '../components/Icon/IconNetflix';
+// import IconNetflix from '../components/Icon/IconNetflix';
 import IconBolt from '../components/Icon/IconBolt';
 import IconCaretDown from '../components/Icon/IconCaretDown';
 import IconPlus from '../components/Icon/IconPlus';
@@ -440,7 +440,7 @@ const Index = () => {
                             </div>
                         </div>
                         <p className="text-lg dark:text-white-light/90">
-                            Total Profit <span className="text-primary ml-2">$10,840</span>
+                            Total Profit <span className="text-primary ml-2">Tk10,840</span>
                         </p>
                         <div className="relative">
                             <div className="bg-white dark:bg-black rounded-lg overflow-hidden">
@@ -530,7 +530,7 @@ const Index = () => {
                                 <div className="flex-1">
                                     <div className="flex font-semibold text-white-dark mb-2">
                                         <h6>Income</h6>
-                                        <p className="ltr:ml-auto rtl:mr-auto">$92,600</p>
+                                        <p className="ltr:ml-auto rtl:mr-auto">Tk92,600</p>
                                     </div>
                                     <div className="rounded-full h-2 bg-dark-light dark:bg-[#1b2e4b] shadow">
                                         <div className="bg-gradient-to-r from-[#7579ff] to-[#b224ef] w-11/12 h-full rounded-full"></div>
@@ -546,7 +546,7 @@ const Index = () => {
                                 <div className="flex-1">
                                     <div className="flex font-semibold text-white-dark mb-2">
                                         <h6>Profit</h6>
-                                        <p className="ltr:ml-auto rtl:mr-auto">$37,515</p>
+                                        <p className="ltr:ml-auto rtl:mr-auto">Tk37,515</p>
                                     </div>
                                     <div className="w-full rounded-full h-2 bg-dark-light dark:bg-[#1b2e4b] shadow">
                                         <div className="bg-gradient-to-r from-[#3cba92] to-[#0ba360] w-full h-full rounded-full" style={{ width: '65%' }}></div>
@@ -562,7 +562,7 @@ const Index = () => {
                                 <div className="flex-1">
                                     <div className="flex font-semibold text-white-dark mb-2">
                                         <h6>Expenses</h6>
-                                        <p className="ltr:ml-auto rtl:mr-auto">$55,085</p>
+                                        <p className="ltr:ml-auto rtl:mr-auto">Tk55,085</p>
                                     </div>
                                     <div className="w-full rounded-full h-2 bg-dark-light dark:bg-[#1b2e4b] shadow">
                                         <div className="bg-gradient-to-r from-[#f09819] to-[#ff5858] w-full h-full rounded-full" style={{ width: '80%' }}></div>
@@ -751,7 +751,7 @@ const Index = () => {
                                         <div>Shaun Park</div>
                                         <div className="text-xs text-white-dark dark:text-gray-500">10 Jan 1:00PM</div>
                                     </div>
-                                    <span className="text-success text-base px-1 ltr:ml-auto rtl:mr-auto whitespace-pre">+$36.11</span>
+                                    <span className="text-success text-base px-1 ltr:ml-auto rtl:mr-auto whitespace-pre">+Tk36.11</span>
                                 </div>
                                 <div className="flex">
                                     <span className="shrink-0 grid place-content-center w-9 h-9 rounded-md bg-warning-light dark:bg-warning text-warning dark:text-warning-light">
@@ -761,35 +761,34 @@ const Index = () => {
                                         <div>Cash withdrawal</div>
                                         <div className="text-xs text-white-dark dark:text-gray-500">04 Jan 1:00PM</div>
                                     </div>
-                                    <span className="text-danger text-base px-1 ltr:ml-auto rtl:mr-auto whitespace-pre">-$16.44</span>
+                                    <span className="text-danger text-base px-1 ltr:ml-auto rtl:mr-auto whitespace-pre">-Tk16.44</span>
                                 </div>
                                 <div className="flex">
                                     <span className="shrink-0 grid place-content-center w-9 h-9 rounded-md bg-danger-light dark:bg-danger text-danger dark:text-danger-light">
                                         <IconUser className="w-6 h-6" />
                                     </span>
                                     <div className="px-3 flex-1">
-                                        <div>Amy Diaz</div>
+                                        <div>Insurance</div>
                                         <div className="text-xs text-white-dark dark:text-gray-500">10 Jan 1:00PM</div>
                                     </div>
-                                    <span className="text-success text-base px-1 ltr:ml-auto rtl:mr-auto whitespace-pre">+$66.44</span>
+                                    <span className="text-success text-base px-1 ltr:ml-auto rtl:mr-auto whitespace-pre">+Tk66.44</span>
                                 </div>
                                 <div className="flex">
                                     <span className="shrink-0 grid place-content-center w-9 h-9 rounded-md bg-secondary-light dark:bg-secondary text-secondary dark:text-secondary-light">
-                                        <IconNetflix />
                                     </span>
                                     <div className="px-3 flex-1">
-                                        <div>Netflix</div>
+                                        <div>Transport</div>
                                         <div className="text-xs text-white-dark dark:text-gray-500">04 Jan 1:00PM</div>
                                     </div>
-                                    <span className="text-danger text-base px-1 ltr:ml-auto rtl:mr-auto whitespace-pre">-$32.00</span>
+                                    <span className="text-danger text-base px-1 ltr:ml-auto rtl:mr-auto whitespace-pre">-Tk32.00</span>
                                 </div>
                                 <div className="flex">
                                     <span className="shrink-0 grid place-content-center text-base w-9 h-9 rounded-md bg-info-light dark:bg-info text-info dark:text-info-light">DA</span>
                                     <div className="px-3 flex-1">
-                                        <div>Daisy Anderson</div>
+                                        <div>Vat</div>
                                         <div className="text-xs text-white-dark dark:text-gray-500">10 Jan 1:00PM</div>
                                     </div>
-                                    <span className="text-success text-base px-1 ltr:ml-auto rtl:mr-auto whitespace-pre">+$10.08</span>
+                                    <span className="text-success text-base px-1 ltr:ml-auto rtl:mr-auto whitespace-pre">+Tk10.08</span>
                                 </div>
                                 <div className="flex">
                                     <span className="shrink-0 grid place-content-center w-9 h-9 rounded-md bg-primary-light dark:bg-primary text-primary dark:text-primary-light">
@@ -799,7 +798,7 @@ const Index = () => {
                                         <div>Electricity Bill</div>
                                         <div className="text-xs text-white-dark dark:text-gray-500">04 Jan 1:00PM</div>
                                     </div>
-                                    <span className="text-danger text-base px-1 ltr:ml-auto rtl:mr-auto whitespace-pre">-$22.00</span>
+                                    <span className="text-danger text-base px-1 ltr:ml-auto rtl:mr-auto whitespace-pre">-Tk22.00</span>
                                 </div>
                             </div>
                         </div>
@@ -809,8 +808,8 @@ const Index = () => {
                         <div className="p-6 bg-gradient-to-r from-[#4361ee] to-[#160f6b] min-h-[190px]">
                             <div className="flex justify-between items-center mb-6">
                                 <div className="bg-black/50 rounded-full p-1 ltr:pr-3 rtl:pl-3 flex items-center text-white font-semibold">
-                                    <img className="w-8 h-8 rounded-full border-2 border-white/50 block object-cover ltr:mr-1 rtl:ml-1" src="/assets/images/profile-34.jpeg" alt="avatar" />
-                                    Alan Green
+                                    <img className="w-8 h-8 rounded-full border-2 border-white/50 block object-cover ltr:mr-1 rtl:ml-1" src="/assets/images/proile-34.jpeg" alt="avatar" />
+                                    Site Manager Account
                                 </div>
                                 <button type="button" className="ltr:ml-auto rtl:mr-auto flex items-center justify-between w-9 h-9 bg-black text-white rounded-md hover:opacity-80">
                                     <IconPlus className="w-6 h-6 m-auto" />
@@ -819,7 +818,7 @@ const Index = () => {
                             <div className="text-white flex justify-between items-center">
                                 <p className="text-xl">Wallet Balance</p>
                                 <h5 className="ltr:ml-auto rtl:mr-auto text-2xl">
-                                    <span className="text-white-light">$</span>2953
+                                    <span className="text-white-light">Tk</span>2953
                                 </h5>
                             </div>
                         </div>
@@ -829,14 +828,14 @@ const Index = () => {
                                     Received
                                     <IconCaretDown className="w-4 h-4 text-success rotate-180" />
                                 </span>
-                                <div className="btn w-full  py-1 text-base shadow-none border-0 bg-[#ebedf2] dark:bg-black text-[#515365] dark:text-[#bfc9d4]">$97.99</div>
+                                <div className="btn w-full  py-1 text-base shadow-none border-0 bg-[#ebedf2] dark:bg-black text-[#515365] dark:text-[#bfc9d4]">Tk97.99</div>
                             </div>
                             <div className="bg-white rounded-md shadow px-4 py-2.5 dark:bg-[#060818]">
                                 <span className="flex justify-between items-center mb-4 dark:text-white">
                                     Spent
                                     <IconCaretDown className="w-4 h-4 text-danger" />
                                 </span>
-                                <div className="btn w-full  py-1 text-base shadow-none border-0 bg-[#ebedf2] dark:bg-black text-[#515365] dark:text-[#bfc9d4]">$53.00</div>
+                                <div className="btn w-full  py-1 text-base shadow-none border-0 bg-[#ebedf2] dark:bg-black text-[#515365] dark:text-[#bfc9d4]">Tk53.00</div>
                             </div>
                         </div>
                         <div className="p-5">
@@ -847,15 +846,15 @@ const Index = () => {
                             </div>
                             <div className="mb-5 space-y-1">
                                 <div className="flex items-center justify-between">
-                                    <p className="text-[#515365] font-semibold">Netflix</p>
+                                    <p className="text-[#515365] font-semibold">Remain</p>
                                     <p className="text-base">
-                                        <span>$</span> <span className="font-semibold">13.85</span>
+                                        <span>Tk</span> <span className="font-semibold">13.85</span>
                                     </p>
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <p className="text-[#515365] font-semibold">BlueHost VPN</p>
                                     <p className="text-base">
-                                        <span>$</span> <span className="font-semibold ">15.66</span>
+                                        <span>Tk</span> <span className="font-semibold ">15.66</span>
                                     </p>
                                 </div>
                             </div>
@@ -864,7 +863,7 @@ const Index = () => {
                                     View Details
                                 </button>
                                 <button type="button" className="btn btn-success">
-                                    Pay Now $29.51
+                                    Pay Now Tk29.51
                                 </button>
                             </div>
                         </div>
@@ -891,15 +890,15 @@ const Index = () => {
                                     <tr className="text-white-dark hover:text-black dark:hover:text-white-light/90 group">
                                         <td className="min-w-[150px] text-black dark:text-white">
                                             <div className="flex items-center">
-                                                <img className="w-8 h-8 rounded-md ltr:mr-3 rtl:ml-3 object-cover" src="/assets/images/profile-6.jpeg" alt="avatar" />
-                                                <span className="whitespace-nowrap">Luke Ivory</span>
+                                                <img className="w-8 h-8 rounded-md ltr:mr-3 rtl:ml-3 object-cover" src="/assets/images/profle-6.jpeg" alt="avatar" />
+                                                <span className="whitespace-nowrap">Akij Group</span>
                                             </div>
                                         </td>
-                                        <td className="text-primary">Headphone</td>
+                                        <td className="text-primary">Cables</td>
                                         <td>
                                             <Link to="/apps/invoice/preview">#46894</Link>
                                         </td>
-                                        <td>$56.07</td>
+                                        <td>Tk56.07</td>
                                         <td>
                                             <span className="badge bg-success shadow-md dark:group-hover:bg-transparent">Paid</span>
                                         </td>
@@ -907,15 +906,15 @@ const Index = () => {
                                     <tr className="text-white-dark hover:text-black dark:hover:text-white-light/90 group">
                                         <td className="text-black dark:text-white">
                                             <div className="flex items-center">
-                                                <img className="w-8 h-8 rounded-md ltr:mr-3 rtl:ml-3 object-cover" src="/assets/images/profile-7.jpeg" alt="avatar" />
-                                                <span className="whitespace-nowrap">Andy King</span>
+                                                <img className="w-8 h-8 rounded-md ltr:mr-3 rtl:ml-3 object-cover" src="/assets/images/prfie-7.jpeg" alt="avatar" />
+                                                <span className="whitespace-nowrap">Navana</span>
                                             </div>
                                         </td>
-                                        <td className="text-info">Nike Sport</td>
+                                        <td className="text-info">Cables</td>
                                         <td>
                                             <Link to="/apps/invoice/preview">#76894</Link>
                                         </td>
-                                        <td>$126.04</td>
+                                        <td>Tk126.04</td>
                                         <td>
                                             <span className="badge bg-secondary shadow-md dark:group-hover:bg-transparent">Shipped</span>
                                         </td>
@@ -923,15 +922,15 @@ const Index = () => {
                                     <tr className="text-white-dark hover:text-black dark:hover:text-white-light/90 group">
                                         <td className="text-black dark:text-white">
                                             <div className="flex items-center">
-                                                <img className="w-8 h-8 rounded-md ltr:mr-3 rtl:ml-3 object-cover" src="/assets/images/profile-8.jpeg" alt="avatar" />
-                                                <span className="whitespace-nowrap">Laurie Fox</span>
+                                                <img className="w-8 h-8 rounded-md ltr:mr-3 rtl:ml-3 object-cover" src="/assets/images/profle-8.jpeg" alt="avatar" />
+                                                <span className="whitespace-nowrap">Bata BD</span>
                                             </div>
                                         </td>
-                                        <td className="text-warning">Sunglasses</td>
+                                        <td className="text-warning">Cables</td>
                                         <td>
                                             <Link to="/apps/invoice/preview">#66894</Link>
                                         </td>
-                                        <td>$56.07</td>
+                                        <td>Tk56.07</td>
                                         <td>
                                             <span className="badge bg-success shadow-md dark:group-hover:bg-transparent">Paid</span>
                                         </td>
@@ -939,15 +938,15 @@ const Index = () => {
                                     <tr className="text-white-dark hover:text-black dark:hover:text-white-light/90 group">
                                         <td className="text-black dark:text-white">
                                             <div className="flex items-center">
-                                                <img className="w-8 h-8 rounded-md ltr:mr-3 rtl:ml-3 object-cover" src="/assets/images/profile-9.jpeg" alt="avatar" />
+                                                <img className="w-8 h-8 rounded-md ltr:mr-3 rtl:ml-3 object-cover" src="/assets/images/profle-9.jpeg" alt="avatar" />
                                                 <span className="whitespace-nowrap">Ryan Collins</span>
                                             </div>
                                         </td>
-                                        <td className="text-danger">Sport</td>
+                                        <td className="text-danger">Copper Wair</td>
                                         <td>
                                             <Link to="/apps/invoice/preview">#75844</Link>
                                         </td>
-                                        <td>$110.00</td>
+                                        <td>Tk110.00</td>
                                         <td>
                                             <span className="badge bg-secondary shadow-md dark:group-hover:bg-transparent">Shipped</span>
                                         </td>
@@ -955,7 +954,7 @@ const Index = () => {
                                     <tr className="text-white-dark hover:text-black dark:hover:text-white-light/90 group">
                                         <td className="text-black dark:text-white">
                                             <div className="flex items-center">
-                                                <img className="w-8 h-8 rounded-md ltr:mr-3 rtl:ml-3 object-cover" src="/assets/images/profile-10.jpeg" alt="avatar" />
+                                                <img className="w-8 h-8 rounded-md ltr:mr-3 rtl:ml-3 object-cover" src="/assets/images/prole-10.jpeg" alt="avatar" />
                                                 <span className="whitespace-nowrap">Irene Collins</span>
                                             </div>
                                         </td>
@@ -963,7 +962,7 @@ const Index = () => {
                                         <td>
                                             <Link to="/apps/invoice/preview">#46894</Link>
                                         </td>
-                                        <td>$56.07</td>
+                                        <td>Tk56.07</td>
                                         <td>
                                             <span className="badge bg-success shadow-md dark:group-hover:bg-transparent">Paid</span>
                                         </td>
@@ -992,15 +991,15 @@ const Index = () => {
                                     <tr className="text-white-dark hover:text-black dark:hover:text-white-light/90 group">
                                         <td className="min-w-[150px] text-black dark:text-white">
                                             <div className="flex">
-                                                <img className="w-8 h-8 rounded-md ltr:mr-3 rtl:ml-3 object-cover" src="/assets/images/product-headphones.jpg" alt="avatar" />
+                                                <img className="w-8 h-8 rounded-md ltr:mr-3 rtl:ml-3 object-cover" src="/assets/images/produt-Cabless.jpg" alt="avatar" />
                                                 <p className="whitespace-nowrap">
-                                                    Headphone
+                                                    Cables
                                                     <span className="text-primary block text-xs">Digital</span>
                                                 </p>
                                             </div>
                                         </td>
-                                        <td>$168.09</td>
-                                        <td>$60.09</td>
+                                        <td>Tk168.09</td>
+                                        <td>Tk60.09</td>
                                         <td>170</td>
                                         <td>
                                             <Link className="text-danger flex items-center" to="/">
@@ -1012,33 +1011,33 @@ const Index = () => {
                                     <tr className="text-white-dark hover:text-black dark:hover:text-white-light/90 group">
                                         <td className="text-black dark:text-white">
                                             <div className="flex">
-                                                <img className="w-8 h-8 rounded-md ltr:mr-3 rtl:ml-3 object-cover" src="/assets/images/product-shoes.jpg" alt="avatar" />
+                                                <img className="w-8 h-8 rounded-md ltr:mr-3 rtl:ml-3 object-cover" src="/assets/images/produc-shoes.jpg" alt="avatar" />
                                                 <p className="whitespace-nowrap">
-                                                    Shoes <span className="text-warning block text-xs">Faishon</span>
+                                                    Transformer <span className="text-warning block text-xs">Accessories</span>
                                                 </p>
                                             </div>
                                         </td>
-                                        <td>$126.04</td>
-                                        <td>$47.09</td>
+                                        <td>Tk126.04</td>
+                                        <td>Tk47.09</td>
                                         <td>130</td>
                                         <td>
                                             <Link className="text-success flex items-center" to="/">
                                                 <IconMultipleForwardRight className="rtl:rotate-180 ltr:mr-1 rtl:ml-1" />
-                                                Google
+                                                Link
                                             </Link>
                                         </td>
                                     </tr>
                                     <tr className="text-white-dark hover:text-black dark:hover:text-white-light/90 group">
                                         <td className="text-black dark:text-white">
                                             <div className="flex">
-                                                <img className="w-8 h-8 rounded-md ltr:mr-3 rtl:ml-3 object-cover" src="/assets/images/product-watch.jpg" alt="avatar" />
+                                                <img className="w-8 h-8 rounded-md ltr:mr-3 rtl:ml-3 object-cover" src="/assets/images/pruct-watch.jpg" alt="avatar" />
                                                 <p className="whitespace-nowrap">
-                                                    Watch <span className="text-danger block text-xs">Accessories</span>
+                                                    Bulb <span className="text-danger block text-xs">Accessories</span>
                                                 </p>
                                             </div>
                                         </td>
-                                        <td>$56.07</td>
-                                        <td>$20.00</td>
+                                        <td>Tk56.07</td>
+                                        <td>Tk20.00</td>
                                         <td>66</td>
                                         <td>
                                             <Link className="text-warning flex items-center" to="/">
@@ -1050,14 +1049,14 @@ const Index = () => {
                                     <tr className="text-white-dark hover:text-black dark:hover:text-white-light/90 group">
                                         <td className="text-black dark:text-white">
                                             <div className="flex">
-                                                <img className="w-8 h-8 rounded-md ltr:mr-3 rtl:ml-3 object-cover" src="/assets/images/product-laptop.jpg" alt="avatar" />
+                                                <img className="w-8 h-8 rounded-md ltr:mr-3 rtl:ml-3 object-cover" src="/assets/images/prouct-laptop.jpg" alt="avatar" />
                                                 <p className="whitespace-nowrap">
-                                                    Laptop <span className="text-primary block text-xs">Digital</span>
+                                                    Lamp Post <span className="text-primary block text-xs">Digital</span>
                                                 </p>
                                             </div>
                                         </td>
-                                        <td>$110.00</td>
-                                        <td>$33.00</td>
+                                        <td>Tk110.00</td>
+                                        <td>Tk33.00</td>
                                         <td>35</td>
                                         <td>
                                             <Link className="text-secondary flex items-center" to="/">
@@ -1069,14 +1068,14 @@ const Index = () => {
                                     <tr className="text-white-dark hover:text-black dark:hover:text-white-light/90 group">
                                         <td className="text-black dark:text-white">
                                             <div className="flex">
-                                                <img className="w-8 h-8 rounded-md ltr:mr-3 rtl:ml-3 object-cover" src="/assets/images/product-camera.jpg" alt="avatar" />
+                                                <img className="w-8 h-8 rounded-md ltr:mr-3 rtl:ml-3 object-cover" src="/assets/images/product-camra.jpg" alt="avatar" />
                                                 <p className="whitespace-nowrap">
-                                                    Camera <span className="text-primary block text-xs">Digital</span>
+                                                    Transformer Oil <span className="text-primary block text-xs">Raw Materials</span>
                                                 </p>
                                             </div>
                                         </td>
-                                        <td>$56.07</td>
-                                        <td>$26.04</td>
+                                        <td>Tk56.07</td>
+                                        <td>Tk26.04</td>
                                         <td>30</td>
                                         <td>
                                             <Link className="text-primary flex items-center" to="/">

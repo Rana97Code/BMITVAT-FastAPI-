@@ -19,7 +19,7 @@ const addUnit = () => {
     const units = {
       unit_name: unitName,
       unit_details: unitAbbr,
-      status: unitStatus,
+      unit_status: unitStatus,
       createdBy: '0',
       updatedBy: '0'
     }
@@ -31,7 +31,7 @@ const addUnit = () => {
     const headers= { Authorization: `Bearer ${bearer1}` }
 
     try {
-       await axios.post("http://localhost:8000/bmitvat/api/add_unit", units, {headers})
+       await axios.post("http://127.0.0.1:8000/bmitvat/api/add_unit", units, {headers})
         .then(function (response) {
           if(response){
             navigate("/pages/settings/unit");
