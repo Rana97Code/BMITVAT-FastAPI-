@@ -25,6 +25,7 @@ const index = () => {
 
     const col = ['id', 'unitName', 'description', 'status', 'action'];
     const navigate = useNavigate();
+    const [showAlert, setShowAlert] = useState(false);
 
     useEffect(() => {
         const token = localStorage.getItem('Token');
@@ -53,7 +54,7 @@ const index = () => {
         dispatch(setPageTitle('Export Table'));
     });
     const [page, setPage] = useState(1);
-    const PAGE_SIZES = [10, 20, 30, 50, 100];
+    const PAGE_SIZES = [10, 20, 30, 50, 100, 500];
     const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
     const [initialRecords, setInitialRecords] = useState([]);
     const [recordsData, setRecordsData] = useState(initialRecords);
@@ -79,7 +80,7 @@ const index = () => {
                     item.id.toString().includes(search.toLowerCase()) ||
                     item.unit_name.toLowerCase().includes(search.toLowerCase()) ||
                     item.unit_details.toLowerCase().includes(search.toLowerCase()) ||
-                    item.status.tooltip.toLowerCase().includes(search.toLowerCase()) ||
+                    item.unit_status.tooltip.toLowerCase().includes(search.toLowerCase()) ||
                     item.action.toLowerCase().includes(search.toLowerCase())
                 );
             });
@@ -219,9 +220,6 @@ const index = () => {
             .join(' ');
     };
 
-    //Excel File Upload
-
-
 
     const [defaultParams] = useState({ file: '', });
     const [selectedFiles, setSelectedFiles] = useState<File | undefined>( undefined );
@@ -230,45 +228,35 @@ const index = () => {
         setSelectedFiles(event?.target?.files?.[0]);
         
       };
-    //   const file = selectedFiles;
-    //   console.log(file);
+
 
     const handelExcelUpload = async (e:React.FormEvent<HTMLFormElement>) =>{
-
+        e.preventDefault();
         const file = { 
             file: selectedFiles
         }
-        console.log(file);
-
         const token = localStorage.getItem('Token');
-        if(token){
+        if(token && file){
             const bearer = JSON.parse(token);
         const headers= { Authorization: `Bearer ${bearer}`,'content-type': 'multipart/form-data' }
-        // console.log(headers);
-
+    try {
       await axios.post('http://127.0.0.1:8000/bmitvat/api/unit/upload_unit_excel', file, {headers})
       .then(function (response){
-        console.log("Data Inserted");
-        if(response.status==200){
-            navigate("/pages/settings/unit");
-          }
-            
-        //   }else{
-        //     alert("No Data Insert");
-        //     navigate("/pages/settings/unit");
-
-        //   }
-      })
-       
-      .catch((error) => {
-          console.error('Error fetching data:', error);
-
-      });
+      if(response.status==200){
+        navigate("/pages/settings/unit");
+        window.location.reload();
+      }else{
+        setShowAlert(true);
+        navigate("/pages/settings/unit");
+      }
+    })
+    } catch (err) {
+      console.log(err);
+    }
     }
     }
 
     useEffect(() => {
-        // handleFileSelect;
         handelExcelUpload;
     }, []);
 
@@ -338,6 +326,15 @@ const index = () => {
 
     return (
         <div>
+            {/* if excel file does not upload */}
+            {showAlert && (
+                    <div className="alert">
+                    <p>Oops! Something went wrong.</p>
+                    <button onClick={() => setShowAlert(false)}>Close</button>
+                    </div>
+                )}
+
+
             <div className="panel flex items-center justify-between flex-wrap gap-4 text-black">
                 <h2 className="text-xl font-bold">Unit</h2>
                 <div className="flex items-center flex-wrap gap-3">
@@ -385,7 +382,7 @@ const index = () => {
                                         Excel File
                                     </div>
                                     <div className="p-5">
-                                        <form onSubmit={handelExcelUpload} method="POST" >
+                                        <form onSubmit={handelExcelUpload} >
                                             {/* <div className="mb-5">
                                                 <label className="custom-file-container__custom-file">File Upload</label>
                                                 <input id="file" type="file" />
@@ -461,10 +458,10 @@ const index = () => {
                             { accessor: 'unit_name', title: 'Unit Name', sortable: true },
                             { accessor: 'unit_details', title: 'Description', sortable: true },
                             {
-                                accessor: 'status',
+                                accessor: 'unit_status',
                                 title: 'Status',
                                 sortable: true,
-                                render: ({ status }) => <span className={`p-2 badge ${status == 1 ? 'badge-outline-success' : 'badge-outline-danger'} `}>{status == 1 ? 'Active' : 'Inactive'}</span>,
+                                render: ({ unit_status }) => <span className={`p-2 badge ${unit_status == 1 ? 'badge-outline-success' : 'badge-outline-danger'} `}>{unit_status == 1 ? 'Active' : 'Inactive'}</span>,
                             },
                             {
                                 accessor: 'action',

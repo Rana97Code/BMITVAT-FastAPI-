@@ -18,14 +18,14 @@ const editUnit = () => {
             const bearer = JSON.parse(token);
             const headers= { Authorization: `Bearer ${bearer}` }
 
-        await axios.get(`http://localhost:8000/bmitvat/api/get_unit/${params.id}`,{headers})
+        await axios.get(`http://127.0.0.1:8000/bmitvat/api/get_unit/${params.id}`,{headers})
             .then((response) => {
                 // setInitialRecords(response.data);
                 const data = response.data;
                 console.log(data);
                 setName(data.unit_name)
                 setAbbr(data.unit_details)
-                setStatus(data.status)
+                setStatus(data.unit_status)
 
             })
             .catch((error) => {
@@ -44,7 +44,7 @@ const editUnit = () => {
         const units = {
           unit_name: unitName,
           unit_details: abbr,
-          status: status,
+          unit_status: status,
           createdBy: '1',
           updatedBy: '1'
         }
@@ -56,8 +56,7 @@ const editUnit = () => {
 
 
         try {
-            console.log(units);
-           await axios.put(`http://localhost:8000/bmitvat/api/update_unit/${params.id}`, units, {headers})
+           await axios.put(`http://127.0.0.1:8000/bmitvat/api/update_unit/${params.id}`, units, {headers})
           .then(function (response){
             navigate("/pages/settings/unit");
           })

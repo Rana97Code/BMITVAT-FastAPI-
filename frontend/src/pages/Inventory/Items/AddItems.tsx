@@ -6,7 +6,7 @@ import axios from 'axios';
 
 
 const addItem = () => {
-  const [itemName, setName] = useState("");
+  const [item_name, setName] = useState("");
   const [unitId, setUnit] = useState("");
   const [hsCodeId, setHscodeId] = useState("");
   const [itemType, setType] = useState("");
@@ -14,7 +14,7 @@ const addItem = () => {
 
   interface units {
     id: number;
-    unitName: string;
+    unit_name: string;
   }
   interface Hscode {
     id: number;
@@ -33,11 +33,10 @@ const [allHscode, setGetAllHscode] = useState<Hscode[]>([]);
   useEffect(() => {
     const token = localStorage.getItem('Token');
     if(token){
-        const bearer =  token.slice(1,-1); 
-  
-      const headers= { Authorization: `Bearer ${bearer}` }
+          const bearer = JSON.parse(token);
+          const headers= { Authorization: `Bearer ${bearer}` }
                 // for Authorised Person
-            axios.get('http://localhost:8080/bmitvat/api/unit/allunits',{headers})
+            axios.get('http://127.0.0.1:8000/bmitvat/api/allunits',{headers})
             .then((response) => {
                 setGetAllUnits(response.data);
             })
@@ -45,7 +44,7 @@ const [allHscode, setGetAllHscode] = useState<Hscode[]>([]);
                 console.error('Error fetching data:', error);
 
             });
-            axios.get('http://localhost:8080/bmitvat/api/hs_code/all_hs-code',{headers})
+            axios.get('http://127.0.0.1:8080/bmitvat/api/hs_code/all_hs-code',{headers})
             .then((response) => {
                 setGetAllHscode(response.data);
             })
@@ -55,9 +54,8 @@ const [allHscode, setGetAllHscode] = useState<Hscode[]>([]);
             });
           }
 
-
-    handleSubmit;
-}, []);
+      handleSubmit;
+  }, []);
 
   const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -77,7 +75,7 @@ const [allHscode, setGetAllHscode] = useState<Hscode[]>([]);
 
 
     const items = {
-      itemName: itemName,
+      item_name: item_name,
       unitId: unitId,
       hsCode: hs_code,
       hsCodeId: hs_code_id,
@@ -141,7 +139,7 @@ const [allHscode, setGetAllHscode] = useState<Hscode[]>([]);
                     <option >Select Unit</option>
                     {allUnits.map((option, index) => (
                        <option key={index} value={option.id}>
-                           {option.unitName}
+                           {option.unit_name}
                        </option>
                     ))}
                   </select>
