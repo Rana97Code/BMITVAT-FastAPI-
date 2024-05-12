@@ -18,22 +18,7 @@ const LoginCover = () => {
 
   const [username, setUser] = useState("")
   const [password, setPassword] = useState("")
-//   const [error, setError] = useState('')
-//   console.log(username.length);
-// console.log(error);
-//     const isLogin = () => {
-//       const items = localStorage.getItem('usersinfo');
-//       if (items != null) {
-//         const loggedIn = JSON.parse(items);
-//         const userstatus = loggedIn.status;
-//           if (userstatus) {
-//             navigate('/dashboard');
-//           }else {
-//             navigate('/');
-//           }
-//       }
-//     }
-//     axios.withCredentials = true;
+
 
 
   const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) =>{
