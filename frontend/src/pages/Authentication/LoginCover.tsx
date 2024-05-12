@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { IRootState } from '../../store';
 import IconMail from '../../components/Icon/IconMail';
 import IconLockDots from '../../components/Icon/IconLockDots';
 import IconUser from '../../components/Icon/IconUser';
 import axios from 'axios';
-const LoginCover = () => {
+import UserContex from '../../context/UserContex';
 
+const LoginCover = () => {
+    const navigate = useNavigate();
+
+
+    const user = useContext(UserContex);
+    if(user.email){
+        navigate("/index");
+    }
 
   const [username, setUser] = useState("")
   const [password, setPassword] = useState("")
@@ -27,7 +35,6 @@ const LoginCover = () => {
 //     }
 //     axios.withCredentials = true;
 
-const navigate = useNavigate();
 
   const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) =>{
     e.preventDefault();

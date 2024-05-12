@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink, useLocation , useNavigate} from 'react-router-dom';
 import { IRootState } from '../../store';
@@ -21,12 +21,17 @@ import IconMenuPages from '../Icon/Menu/IconMenuPages';
 import IconMenuMore from '../Icon/Menu/IconMenuMore';
 import { jwtDecode } from "jwt-decode";
 
+import UserContex from '../../context/UserContex';
+
 const Header = () => {
     const [username,setName]=useState("");
     const [userprofile,setProfile]=useState("");
 
     const location = useLocation();
     const navigate = useNavigate();
+    const user = useContext(UserContex);
+    // console.log(user.token);
+    // console.log(user.email);
 
     useEffect(() => {
         const selector = document.querySelector('ul.horizontal-menu a[href="' + window.location.pathname + '"]');
