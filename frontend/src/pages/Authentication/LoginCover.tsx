@@ -12,6 +12,7 @@ const LoginCover = () => {
 
 
     const user = useContext(UserContex);
+    const baseUrl= user.base_url;
     if(user.email){
         navigate("/index");
     }
@@ -28,7 +29,7 @@ const LoginCover = () => {
       formData.append('username', username);
       formData.append('password', password);
 
-     await axios.post("http://127.0.0.1:8000/bmitvat/api/auth", formData)
+     await axios.post(`${baseUrl}/bmitvat/api/auth`, formData)
       .then(function (response) {
         // console.warn(response.data);
         if (response) {

@@ -7,10 +7,14 @@ const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const navigate = useNavigate();
 
 
+    const [base_url, setBaseUrl] = useState<any>();
     const [token, setToken] = useState<any>();
     const [email, setUserEmail] = useState<any>();
+    const baseUrl = 'http://127.0.0.1:8000';
+    
 
     useEffect(() => {
+        setBaseUrl(baseUrl);
         // Check if user data exists in localStorage
         const storedUser = localStorage.getItem('Token');
         if (storedUser) {
@@ -27,7 +31,7 @@ const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
 
     return (
-        <UserContex.Provider value={{token,email}}>
+        <UserContex.Provider value={{base_url,token,email}}>
             {children}
         </UserContex.Provider>
     )
