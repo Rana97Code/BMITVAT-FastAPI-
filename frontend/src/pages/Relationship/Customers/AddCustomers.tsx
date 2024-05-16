@@ -1,8 +1,9 @@
-import { useEffect, useState, Fragment } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import IconFile from '../../../components/Icon/IconFile';
 import IconTrashLines from '../../../components/Icon/IconTrashLines';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import UserContex from '../../../context/UserContex';
 
 const addCustomers = () => {
 
@@ -23,7 +24,8 @@ const addCustomers = () => {
   }
   const [countries, setAllCountry] = useState<countrys[]>([]);
   const navigate = useNavigate();
-
+  const user = useContext(UserContex);
+  const baseUrl= user.base_url;
 
 
 
@@ -33,7 +35,7 @@ const addCustomers = () => {
         const bearer = JSON.parse(token);
         const headers= { Authorization: `Bearer ${bearer}` }
 
-    axios.get('http://localhost:8080/bmitvat/api/country/all_country',{headers})
+    axios.get(`${baseUrl}/bmitvat/api/country/all_country`,{headers})
         .then((response) => {
             setAllCountry(response.data);
         })
@@ -70,7 +72,7 @@ const addCustomers = () => {
     const headers= { Authorization: `Bearer ${bearer1}` }
 
     try {
-       await axios.post("http://localhost:8080/bmitvat/api/customer/add-customer", customer, {headers})
+       await axios.post(`${baseUrl}/bmitvat/api/customer/add-customer`, customer, {headers})
         .then(function (response) {
           if(response){
             navigate("/pages/relationship/customers");

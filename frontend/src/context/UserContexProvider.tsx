@@ -1,41 +1,52 @@
-import React, { useState,useEffect } from "react";
-import {useNavigate} from 'react-router-dom';
-import { jwtDecode } from "jwt-decode";
-import UserContex from "./UserContex";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
+import {jwtDecode} from "jwt-decode";  
+import UserContext from "./UserContex";
 
 const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const navigate = useNavigate();
-
-
-    const [base_url, setBaseUrl] = useState<any>();
-    const [token, setToken] = useState<any>();
-    const [email, setUserEmail] = useState<any>();
-    const baseUrl = 'http://127.0.0.1:8000';
-    
+    const [base_url, setBaseUrl] = useState<string | null >(null);
+    // const [base_url, setBaseUrl] = useState<string>('http://127.0.0.1:8000');
+    const [token, setToken] = useState<string | null>(null);
+    const [headers, setHeaders] = useState<any | null>(null);
+    const [email, setUserEmail] = useState<string | null>(null);
 
     useEffect(() => {
-        setBaseUrl(baseUrl);
-        // Check if user data exists in localStorage
+        const baseUrl = import.meta.env.VITE_APP_BASE_URL;  
+        if (baseUrl) {
+            setBaseUrl(baseUrl);
+        } else {
+            console.error("REACT_APP_BASE_URL environment variable is not set");
+        }
+
         const storedUser = localStorage.getItem('Token');
         if (storedUser) {
-            const jwt = jwtDecode(storedUser);
-            var sub = jwt.sub;
-            var email = (jwt as any).user_email;
-        //   setUser(JSON.parse(email as any)); 
-          setToken(storedUser as any); 
-          setUserEmail(email as any); 
-        }else{
+            try {
+                const jwt: any = jwtDecode(storedUser);
+                const userEmail = jwt.user_email;
+                const jsonToken = JSON.parse(storedUser);
+                const authHeaders = { Authorization: `Bearer ${jsonToken}` };
+
+                setToken(jsonToken);
+                setHeaders(authHeaders);
+                setUserEmail(userEmail);
+            } catch (error) {
+                console.error("Error decoding token:", error);
+                navigate("/");
+            }
+            // finally{
+                
+            // }
+        } else {
             navigate("/");
         }
-      }, []); // for one time value get
-
+    }, [navigate]);
 
     return (
-        <UserContex.Provider value={{base_url,token,email}}>
+        <UserContext.Provider value={{ base_url, token, headers, email }}>
             {children}
-        </UserContex.Provider>
-    )
-}
+        </UserContext.Provider>
+    );
+};
+
 export default UserContextProvider;
-
-

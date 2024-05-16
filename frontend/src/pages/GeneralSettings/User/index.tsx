@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { useState, Fragment, useEffect } from 'react';
+import { useContext,useState, Fragment, useEffect } from 'react';
 import { DataTable, DataTableSortStatus } from 'mantine-datatable';
 import { Dialog, Transition } from '@headlessui/react';
 import sortBy from 'lodash/sortBy';
@@ -14,9 +14,11 @@ import IconTrashLines from '../../../components/Icon/IconTrashLines';
 import IconX from '../../../components/Icon/IconX';
 import IconSend from '../../../components/Icon/IconSend';
 import axios from 'axios';
-
+import UserContex from '../../../context/UserContex';
 
 const index = () => {
+    const user = useContext(UserContex);
+    const baseUrl= user.base_url;
 
     const col = ['id', 'unitName', 'description', 'status', 'action'];
     useEffect(() => {
@@ -26,7 +28,7 @@ const index = () => {
             const bearer = JSON.parse(token);
 
         const headers= { Authorization: `Bearer ${bearer}` }
-        axios.get('http://localhost:8080/bmitvat/api/all_user',{headers})
+        axios.get(`${baseUrl}/bmitvat/api/all_user`,{headers})
             .then((response) => {
                 setInitialRecords(response.data);
 

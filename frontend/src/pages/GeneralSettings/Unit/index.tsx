@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, NavLink,useNavigate } from 'react-router-dom';
 import { DataTable, DataTableSortStatus } from 'mantine-datatable';
-import { useEffect, useState, Fragment } from 'react';
+import { useContext,useEffect, useState, Fragment } from 'react';
 import sortBy from 'lodash/sortBy';
 import { Dialog, Transition } from '@headlessui/react';
 import { useDispatch } from 'react-redux';
@@ -18,6 +18,7 @@ import IconUpload from '../../../components/Icon/IconUpload';
 import IconDownload from '../../../components/Icon/IconDownload';
 import axios from 'axios';
 import ImageUploading, { ImageListType } from 'react-images-uploading';
+import UserContex from '../../../context/UserContex';
 
 
 
@@ -26,17 +27,15 @@ const index = () => {
     const col = ['id', 'unitName', 'description', 'status', 'action'];
     const navigate = useNavigate();
     const [showAlert, setShowAlert] = useState(false);
+    const user = useContext(UserContex);
+        const headers= user.headers;
+        const baseUrl= user.base_url;
+        const token = user.token;
+
 
     useEffect(() => {
-        const token = localStorage.getItem('Token');
-
-        if(token){
-            //slice for cutting double cotteation
-            const bearer =  token.slice(2,-2); 
-            // const bearer1 = JSON.parse(token);
-        const headers= { Authorization: `Bearer ${bearer}` }
-
-        axios.get('http://127.0.0.1:8000/bmitvat/api/allunits',{headers})
+        if(user){
+        axios.get(`${baseUrl}/allunits`,{headers})
             .then((response) => {
                 setInitialRecords(response.data);
 
@@ -47,7 +46,7 @@ const index = () => {
             });
 
         }
-    }, []);
+    }, [user]);
 
     const dispatch = useDispatch();
     useEffect(() => {
@@ -235,12 +234,11 @@ const index = () => {
         const file = { 
             file: selectedFiles
         }
-        const token = localStorage.getItem('Token');
         if(token && file){
-            const bearer = JSON.parse(token);
-        const headers= { Authorization: `Bearer ${bearer}`,'content-type': 'multipart/form-data' }
+ 
+        const headers= { token ,'content-type': 'multipart/form-data' }
     try {
-      await axios.post('http://127.0.0.1:8000/bmitvat/api/unit/upload_unit_excel', file, {headers})
+      await axios.post(`${baseUrl}/unit/upload_unit_excel`, file, {headers})
       .then(function (response){
       if(response.status==200){
         navigate("/pages/settings/unit");
@@ -258,7 +256,7 @@ const index = () => {
 
     useEffect(() => {
         handelExcelUpload;
-    }, []);
+    }, [user]);
 
 
 

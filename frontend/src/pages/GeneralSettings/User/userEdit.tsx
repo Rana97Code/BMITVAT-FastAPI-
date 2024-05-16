@@ -1,13 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext,useState, useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import IconFile from '../../../components/Icon/IconFile';
 import IconTrashLines from '../../../components/Icon/IconTrashLines';
 import axios from 'axios';
+import UserContex from '../../../context/UserContex';
 
 const userEdit = () => {
   const [unitName, setName] = useState("");
   const [unitAbbr, setAbbr] = useState("");
   const navigate = useNavigate();
+  const user = useContext(UserContex);
+  const baseUrl= user.base_url;
+
   const handleSubmit = async () => {
     const units = {
       unitName: unitName,
@@ -17,7 +21,7 @@ const userEdit = () => {
       updatedBy: '0'
     }
     try {
-      const data = await axios.post("http://localhost:8080/bmitvat/api/v1/unit", units)
+      const data = await axios.post(`${baseUrl}/bmitvat/api/v1/unit`, units)
         .then(function (response) {
           console.log(response);
           navigate("/pages/settings/unit");

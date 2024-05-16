@@ -1,8 +1,9 @@
-import { useEffect, useState, Fragment } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { Link, useNavigate, useParams  } from "react-router-dom";
 import IconFile from '../../../components/Icon/IconFile';
 import IconTrashLines from '../../../components/Icon/IconTrashLines';
 import axios from 'axios';
+import UserContext from '../../../context/UserContex';
 
 const editSuupliers = () => {
 
@@ -14,6 +15,9 @@ const editSuupliers = () => {
   const [type, setType] = useState("");
   const [bin, setBin] = useState("");
   const [tin, setTin] = useState("");
+  const user = useContext(UserContext);
+  const headers= user.headers;
+  const baseUrl= user.base_url;
 
   interface countrys {
     id: number;
@@ -27,12 +31,9 @@ const editSuupliers = () => {
   const navigate = useNavigate();
 
   const getSuppDetails = async()=>{
-      const token = localStorage.getItem('Token');
-      if(token){
-          const bearer = JSON.parse(token);
-          const headers= { Authorization: `Bearer ${bearer}` }
+      if(user){
 
-      await axios.get(`http://localhost:8080/bmitvat/api/supplier/get_supplier/${params.id}`,{headers})
+      await axios.get(`${baseUrl}/supplier/get_supplier/${params.id}`,{headers})
           .then((response) => {
               // setInitialRecords(response.data);
               const data = response.data;
@@ -53,12 +54,9 @@ const editSuupliers = () => {
       }
   }
   useEffect(()=>{
-    const token = localStorage.getItem('Token');
-    if(token){
-        const bearer = JSON.parse(token);
-        const headers= { Authorization: `Bearer ${bearer}` }
+    if(user){
 
-    axios.get('http://localhost:8080/bmitvat/api/country/all_country',{headers})
+    axios.get(`${baseUrl}/country/all_country`,{headers})
         .then((response) => {
             setAllCountry(response.data);
         })
@@ -69,7 +67,7 @@ const editSuupliers = () => {
 
 
       getSuppDetails();   //create this function
-  },[])  //Use array
+  },[user])  //Use array
 
   const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -96,7 +94,7 @@ const editSuupliers = () => {
 
       try {
           console.log(supplier);
-         await axios.put(`http://localhost:8080/bmitvat/api/supplier/update_supplier/${params.id}`, supplier, {headers})
+         await axios.put(`${baseUrl}/supplier/update_supplier/${params.id}`, supplier, {headers})
         .then(function (response){
           navigate("/pages/relationship/suppliers");
         })

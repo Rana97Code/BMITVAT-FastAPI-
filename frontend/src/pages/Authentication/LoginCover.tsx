@@ -10,7 +10,6 @@ import UserContex from '../../context/UserContex';
 const LoginCover = () => {
     const navigate = useNavigate();
 
-
     const user = useContext(UserContex);
     const baseUrl= user.base_url;
     if(user.email){
@@ -29,9 +28,8 @@ const LoginCover = () => {
       formData.append('username', username);
       formData.append('password', password);
 
-     await axios.post(`${baseUrl}/bmitvat/api/auth`, formData)
+     await axios.post(`${baseUrl}/auth`, formData)
       .then(function (response) {
-        // console.warn(response.data);
         if (response) {
             localStorage.setItem('Token', JSON.stringify(response.data));
          navigate("/index");

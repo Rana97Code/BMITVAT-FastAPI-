@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext,useState, useEffect } from 'react';
 import IconFile from '../../../components/Icon/IconFile';
 import IconTrashLines from '../../../components/Icon/IconTrashLines';
 import { Link, useNavigate, useParams  } from "react-router-dom";
 import axios from 'axios';
+import UserContex from '../../../context/UserContex';
 
 
 const editUnit = () => {
@@ -11,18 +12,17 @@ const editUnit = () => {
     const [status,setStatus]=useState("");
       const params = useParams();
       const navigate = useNavigate();
+      const user = useContext(UserContex);
+      const baseUrl= user.base_url;
 
     const getUnitDetails = async()=>{
-        const token = localStorage.getItem('Token');
-        if(token){
-            const bearer = JSON.parse(token);
-            const headers= { Authorization: `Bearer ${bearer}` }
+        if(user.headers){
+        const headers= user.headers;
 
-        await axios.get(`http://127.0.0.1:8000/bmitvat/api/get_unit/${params.id}`,{headers})
+        await axios.get(`${baseUrl}/get_unit/${params.id}`,{headers})
             .then((response) => {
                 // setInitialRecords(response.data);
                 const data = response.data;
-                console.log(data);
                 setName(data.unit_name)
                 setAbbr(data.unit_details)
                 setStatus(data.unit_status)
@@ -38,8 +38,10 @@ const editUnit = () => {
 
     }
     useEffect(()=>{
-        getUnitDetails();   //create this function
-    },[])  //Use array
+        getUnitDetails();
+    }, [user]);
+
+
     const handleSubmit = async () => {
         const units = {
           unit_name: unitName,
@@ -49,14 +51,11 @@ const editUnit = () => {
           updatedBy: '1'
         }
 
-        const token = localStorage.getItem('Token');
-        if(token){
-            const bearer = JSON.parse(token);
-            const headers= { Authorization: `Bearer ${bearer}` }
-
+        if(user.token){
+            const headers= { Authorization: `Bearer ${user.token}` }
 
         try {
-           await axios.put(`http://127.0.0.1:8000/bmitvat/api/update_unit/${params.id}`, units, {headers})
+           await axios.put(`${baseUrl}/update_unit/${params.id}`, units, {headers})
           .then(function (response){
             navigate("/pages/settings/unit");
           })

@@ -1,9 +1,9 @@
-import { useEffect, useState, Fragment } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import IconFile from '../../../components/Icon/IconFile';
 import IconTrashLines from '../../../components/Icon/IconTrashLines';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+import UserContext from '../../../context/UserContex';
 
 
 const addSuupliers = () => {
@@ -22,17 +22,14 @@ const addSuupliers = () => {
   }
   const [countries, setAllCountry] = useState<countrys[]>([]);
   const navigate = useNavigate();
-
-
+  const user = useContext(UserContext);
+  const headers= user.headers;
+  const baseUrl= user.base_url;
 
 
   useEffect(() => {
-    const token = localStorage.getItem('Token');
-    if(token){
-        const bearer = JSON.parse(token);
-        const headers= { Authorization: `Bearer ${bearer}` }
-
-    axios.get('http://localhost:8080/bmitvat/api/country/all_country',{headers})
+    if(user){
+    axios.get(`${baseUrl}/country/all_country`,{headers})
         .then((response) => {
             setAllCountry(response.data);
         })
@@ -42,7 +39,7 @@ const addSuupliers = () => {
     }
 
     handleSubmit;
-}, []);
+}, [user]);
 
   const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -59,15 +56,11 @@ const addSuupliers = () => {
       createdBy: '1',
     }
 
-    console.log(supplier);
 
-    const token = localStorage.getItem('Token');
-    if(token){
-      const bearer1 = JSON.parse(token);
-    const headers= { Authorization: `Bearer ${bearer1}` }
+    if(user){
 
     try {
-       await axios.post("http://localhost:8080/bmitvat/api/supplier/add-supplier", supplier, {headers})
+       await axios.post(`${baseUrl}/supplier/add-supplier`, supplier, {headers})
         .then(function (response) {
           if(response){
             navigate("/pages/relationship/suppliers");

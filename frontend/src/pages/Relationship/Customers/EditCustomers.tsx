@@ -1,8 +1,9 @@
-import { useEffect, useState, Fragment } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import IconFile from '../../../components/Icon/IconFile';
 import IconTrashLines from '../../../components/Icon/IconTrashLines';
 import { Link, useNavigate, useParams  } from "react-router-dom";
 import axios from 'axios';
+import UserContex from '../../../context/UserContex';
 
 const editCustomers = () => {
 
@@ -24,7 +25,8 @@ const editCustomers = () => {
   const [countries, setAllCountry] = useState<countrys[]>([]);
   const navigate = useNavigate();
   const params = useParams();
-
+  const user = useContext(UserContex);
+  const baseUrl= user.base_url;
 
   const getCustomer = async()=>{
     const token = localStorage.getItem('Token');
@@ -32,7 +34,7 @@ const editCustomers = () => {
         const bearer = JSON.parse(token);
         const headers= { Authorization: `Bearer ${bearer}` }
 
-    await axios.get(`http://localhost:8080/bmitvat/api/customer/get_customer/${params.id}`,{headers})
+    await axios.get(`${baseUrl}/bmitvat/api/customer/get_customer/${params.id}`,{headers})
         .then((response) => {
             // setInitialRecords(response.data);
             const data = response.data;
@@ -62,7 +64,7 @@ const editCustomers = () => {
         const bearer = JSON.parse(token);
         const headers= { Authorization: `Bearer ${bearer}` }
 
-    axios.get('http://localhost:8080/bmitvat/api/country/all_country',{headers})
+    axios.get(`${baseUrl}/bmitvat/api/country/all_country`,{headers})
         .then((response) => {
             setAllCountry(response.data);
         })
@@ -101,7 +103,7 @@ const editCustomers = () => {
     const headers= { Authorization: `Bearer ${bearer1}` }
 
     try {
-       await axios.put(`http://localhost:8080/bmitvat/api/customer/update_customer/${params.id}`, customer, {headers})
+       await axios.put(`${baseUrl}/bmitvat/api/customer/update_customer/${params.id}`, customer, {headers})
         .then(function (response) {
           if(response){
             navigate("/pages/relationship/customers");

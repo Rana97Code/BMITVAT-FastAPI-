@@ -2,7 +2,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '../../../store';
 import { setPageTitle } from '../../../store/themeConfigSlice';
-import { useEffect, useState } from 'react';
+import { useContext,useEffect, useState } from 'react';
 import IconMail from '../../../components/Icon/IconMail';
 import IconPhone from '../../../components/Icon/IconPhone';
 import IconFile from '../../../components/Icon/IconFile';
@@ -10,10 +10,12 @@ import IconTrashLines from '../../../components/Icon/IconTrashLines';
 import change from "../../../../public/assets/images/change-password.svg"
 import { jwtDecode } from "jwt-decode";
 import axios from 'axios';
+import UserContex from '../../../context/UserContex';
 
 
 const profile = () => {
-
+    const user = useContext(UserContex);
+    const baseUrl= user.base_url;
 
     // const dispatch = useDispatch();
     const [user_id,setUserId]=useState("");
@@ -81,7 +83,7 @@ const profile = () => {
             const headers= { Authorization: `Bearer ${bearer}` }
 
 
-        await axios.get(`http://localhost:8080/bmitvat/api/get_user/${userid}`,{headers})
+        await axios.get(`${baseUrl}/bmitvat/api/get_user/${userid}`,{headers})
             .then((response) => {
                 // setInitialRecords(response.data);
                 const data = response.data;
@@ -142,7 +144,7 @@ const profile = () => {
                 const bearer1 = JSON.parse(token);
         
                 const headers= { Authorization: `Bearer ${bearer1}`,'Content-Type': 'multipart/form-data'  }
-                await axios.put(`http://localhost:8080/bmitvat/api/update_user/${user_id}`, formData, {headers})
+                await axios.put(`${baseUrl}/bmitvat/api/update_user/${user_id}`, formData, {headers})
                 .then(function (response) {
                     // console.log(response);
                     navigate("/index");

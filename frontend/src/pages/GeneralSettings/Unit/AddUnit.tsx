@@ -1,8 +1,9 @@
-import React, { useState,useEffect } from 'react';
+import React, {useContext, useState,useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import IconFile from '../../../components/Icon/IconFile';
 import IconTrashLines from '../../../components/Icon/IconTrashLines';
 import axios from 'axios';
+import UserContex from '../../../context/UserContex';
 
 
 const addUnit = () => {
@@ -10,12 +11,15 @@ const addUnit = () => {
   const [unitAbbr, setAbbr] = useState("");
   const [unitStatus, setStatus] = useState("");
   const navigate = useNavigate();
+  const user = useContext(UserContex);
+  const baseUrl= user.base_url;
 
   useEffect(() => {
     handleSubmit;
 }, []);
 
   const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     const units = {
       unit_name: unitName,
       unit_details: unitAbbr,
@@ -24,14 +28,11 @@ const addUnit = () => {
       updatedBy: '0'
     }
 
-    console.log(units);
-    const token = localStorage.getItem('Token');
-    if(token){
-      const bearer1 = JSON.parse(token);
-    const headers= { Authorization: `Bearer ${bearer1}` }
+    if(user.token){
+      const headers= { Authorization: `Bearer ${user.token}` }
 
     try {
-       await axios.post("http://127.0.0.1:8000/bmitvat/api/add_unit", units, {headers})
+       await axios.post(`${baseUrl}/add_unit`, units, {headers})
         .then(function (response) {
           if(response){
             navigate("/pages/settings/unit");

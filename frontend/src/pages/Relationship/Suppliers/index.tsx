@@ -1,6 +1,6 @@
 import { Link, NavLink } from 'react-router-dom';
 import { DataTable, DataTableSortStatus } from 'mantine-datatable';
-import { useEffect, useState, Fragment } from 'react';
+import { useContext, useEffect, useState, Fragment } from 'react';
 import sortBy from 'lodash/sortBy';
 import { Dialog, Transition } from '@headlessui/react';
 import { useDispatch } from 'react-redux';
@@ -14,29 +14,29 @@ import IconDownload from '../../../components/Icon/IconDownload';
 import IconFileUpload from '../../../components/Icon/IconFileUpload';
 import { ImageListType } from 'react-images-uploading';
 import axios from 'axios';
-
+import UserContext from '../../../context/UserContex';
 
 
 const index = () => {
 
+    const user = useContext(UserContext);
+    const headers= user.headers;
+    const baseUrl= user.base_url;
+
     useEffect(()=> {
-        const token = localStorage.getItem('Token');
 
-        if(token){
-            const bearer = JSON.parse(token);
-            const headers= { Authorization: `Bearer ${bearer}` }
+        if(user){
 
-        axios.get('http://localhost:8080/bmitvat/api/supplier/all_supplier',{headers})
+        axios.get(`${baseUrl}/supplier/all_supplier`,{headers})
             .then((response) => {
                 setInitialRecords(response.data);
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
-
             });
 
         }
-    },[]);
+    },[user]);
 
     const dispatch = useDispatch();
     useEffect(() => {
