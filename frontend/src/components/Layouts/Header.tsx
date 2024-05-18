@@ -55,7 +55,6 @@ const Header = () => {
 
         const token = localStorage.getItem('Token');
         if(token){
-
           const jwt = jwtDecode(token);
                var user = jwt.sub;
                var email = (jwt as any).u_email;
@@ -66,32 +65,8 @@ const Header = () => {
                  setName(user);
               }
               setProfile(profile);
-
         }
 
-    // For Auto Refresh
-    const interval = setInterval(() => {
-        
-        const token = localStorage.getItem('Token');
-        if(token){
-          const jwt = jwtDecode(token);
-         var access = jwt.exp;
-        if (access !== undefined) {
-          var current_time = Date.now() / 1000;
-          if ( access < current_time) {
-            localStorage.clear();
-            navigate("/");
-          }else{
-            console.log("You are Valid")
-          }
-
-        }
-        
-        }else{
-          navigate("/")
-        }
-       },20*1000);
-       return () => clearInterval(interval);
 
     }, [location]);
 

@@ -20,26 +20,49 @@ const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
 
         const storedUser = localStorage.getItem('Token');
-        if (storedUser) {
-            try {
-                const jwt: any = jwtDecode(storedUser);
-                const userEmail = jwt.user_email;
-                const jsonToken = JSON.parse(storedUser);
-                const authHeaders = { Authorization: `Bearer ${jsonToken}` };
+                    
+        if (storedUser != null) {
+            const jwt: any = jwtDecode(storedUser);
 
-                setToken(jsonToken);
-                setHeaders(authHeaders);
-                setUserEmail(userEmail);
-            } catch (error) {
-                console.error("Error decoding token:", error);
-                navigate("/");
-            }
-            // finally{
-                
-            // }
+            const userEmail = jwt.user_email;
+            const jsonToken = JSON.parse(storedUser);
+            const authHeaders = { Authorization: `Bearer ${jsonToken}` };
+
+            setToken(jsonToken);
+            setHeaders(authHeaders);
+            setUserEmail(userEmail);
         } else {
             navigate("/");
+            return;
         }
+        // For Auto Refresh and validation check
+                const validateToken = () => {
+                    const jwt: any = jwtDecode(storedUser);
+                    try {
+                        if (jwt.exp !== undefined) {
+                            var current_time = Date.now() / 1000;
+                            if ( jwt.exp < current_time) {
+                                localStorage.clear();
+                                navigate("/");
+                            }else{
+                                console.log("Yes You are Valid")
+                            }
+                        }else{
+                            navigate("/")
+                        }
+                    } catch (error) {
+                        console.error("Error decoding token:", error);
+                        navigate("/");
+                        return;
+                    }
+
+                }
+                validateToken(); 
+
+                const interval = setInterval(validateToken, 1000); // Validate every 1 second
+            
+                return () => clearInterval(interval); 
+
     }, [navigate]);
 
     return (

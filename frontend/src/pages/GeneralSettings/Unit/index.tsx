@@ -236,7 +236,7 @@ const index = () => {
         }
         if(token && file){
  
-        const headers= { token ,'content-type': 'multipart/form-data' }
+        const headers= { Authorization: `Bearer ${token}` ,'content-type': 'multipart/form-data' }
     try {
       await axios.post(`${baseUrl}/unit/upload_unit_excel`, file, {headers})
       .then(function (response){
