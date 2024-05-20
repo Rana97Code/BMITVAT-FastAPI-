@@ -12,13 +12,13 @@ const addSuupliers = () => {
   const [phone, setPhone] = useState("");
   const [country, setCountry] = useState("");
   const [address, setAddress] = useState("");
-  const [type, setType] = useState("");
+  const [type, setType] = useState("1");
   const [bin, setBin] = useState("");
   const [tin, setTin] = useState("");
 
   interface countrys {
     id: number;
-    countryName: string;
+    country_name: string;
   }
   const [countries, setAllCountry] = useState<countrys[]>([]);
   const navigate = useNavigate();
@@ -31,7 +31,11 @@ const addSuupliers = () => {
     if(user){
     axios.get(`${baseUrl}/country/all_country`,{headers})
         .then((response) => {
-            setAllCountry(response.data);
+            if (Array.isArray(response.data)) {
+              setAllCountry(response.data);
+            } else {
+              throw new Error('Response data is not an array');
+          }
         })
         .catch((error) => {
             console.error('Error fetching data:', error);
@@ -45,17 +49,17 @@ const addSuupliers = () => {
     e.preventDefault();
 
     const supplier = {
-      supplierName: name,
-      supplierEmail: email,
-      supplierPhone: phone,
-      supplierAddress: address,
-      supplierType: type,
-      countryId: country,
-      supplierBinNid: bin,
-      supplierTin: tin,
-      createdBy: '1',
+      supplier_name: name,
+      supplier_email:email,
+      supplier_phone: phone,
+      supplier_type: type,
+      country_id: country,
+      s_address: address,
+      s_bin_nid: bin,
+      s_tin: tin,
+      status: '1',
+      user_id: 1
     }
-
 
     if(user){
 
@@ -107,7 +111,7 @@ const addSuupliers = () => {
                   <label htmlFor="supplierType">Supplier Type</label>
                   <div>
                     <select className="form-select text-dark " defaultValue="active" onChange={(e) => setType(e.target.value)} required >
-                      <option value="1">Local</option>
+                      <option value="1" selected>Local</option>
                       <option value="2">Foregin</option>
                     </select>
                   </div>
@@ -125,7 +129,7 @@ const addSuupliers = () => {
                       <option value="1">Select Countries</option>
                       {countries.map((option, index) => ( 
                           <option key={index} value={option.id}> 
-                              {option.countryName} 
+                              {option.country_name} 
                       </option> 
                       ))} 
                     </select>

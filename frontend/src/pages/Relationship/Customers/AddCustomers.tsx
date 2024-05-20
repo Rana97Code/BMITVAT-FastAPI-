@@ -5,6 +5,11 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import UserContex from '../../../context/UserContex';
 
+interface countrys {
+  id: number;
+  country_name: string;
+}
+
 const addCustomers = () => {
 
   const [name, setName] = useState("");
@@ -12,67 +17,67 @@ const addCustomers = () => {
   const [phone, setPhone] = useState("");
   const [country, setCountry] = useState("");
   const [address, setAddress] = useState("");
-  const [type, setType] = useState("");
+  const [type, setType] = useState('1');
   const [shippingCid, setScId] = useState("");
   const [shippingAdd, setScAddress] = useState("");
   const [bin, setBin] = useState("");
   const [tin, setTin] = useState("");
 
-  interface countrys {
-    id: number;
-    countryName: string;
-  }
+
   const [countries, setAllCountry] = useState<countrys[]>([]);
   const navigate = useNavigate();
   const user = useContext(UserContex);
-  const baseUrl= user.base_url;
+  const headers= user.headers;
+
+  const getCustomerDetails = async()=>{ 
+    if(user){
+
+      axios.get(`${user.base_url}/country/all_country`,{headers})
+          .then((response) => {
+            if (Array.isArray(response.data)) {
+              setAllCountry(response.data);
+            } else {
+              throw new Error('Response data is not an array');
+          }
+          })
+          .catch((error) => {
+              console.error('Error fetching data:', error);
+          });
+      }
+  
+  }
 
 
 
   useEffect(() => {
-    const token = localStorage.getItem('Token');
-    if(token){
-        const bearer = JSON.parse(token);
-        const headers= { Authorization: `Bearer ${bearer}` }
-
-    axios.get(`${baseUrl}/bmitvat/api/country/all_country`,{headers})
-        .then((response) => {
-            setAllCountry(response.data);
-        })
-        .catch((error) => {
-            console.error('Error fetching data:', error);
-        });
-    }
-
+    getCustomerDetails();
     handleSubmit;
-}, []);
+}, [user]);
 
   const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const customer = {
-      customerName: name,
-      customerEmail: email,
-      customerPhone: phone,
-      customerAddress: address,
-      customerType: type,
-      countryId: country,
-      shippingAddress: shippingAdd,
-      shippingCountryId: shippingCid,
-      customerBinNid: bin,
-      customerTin: tin,
-      createdBy: '1',
+      customer_name: name,
+      customer_email: email,
+      customer_phone: phone,
+      customer_type: type,
+      country_id: country,
+      c_address: address,
+      shipping_country_id: shippingCid,
+      shipping_address: shippingAdd,
+      c_bin_nid: bin,
+      c_tin: tin,
+      status: '1',
+      user_id: 1
     }
 
     console.log(customer);
 
-    const token = localStorage.getItem('Token');
-    if(token){
-      const bearer1 = JSON.parse(token);
-    const headers= { Authorization: `Bearer ${bearer1}` }
+    if(user){
 
     try {
-       await axios.post(`${baseUrl}/bmitvat/api/customer/add-customer`, customer, {headers})
+       await axios.post(`${user.base_url}/customer/add_customer`, customer, {headers})
         .then(function (response) {
           if(response){
             navigate("/pages/relationship/customers");
@@ -119,7 +124,7 @@ const addCustomers = () => {
                   <label htmlFor="supplierType">Customer Type</label>
                   <div>
                     <select className="form-select text-dark " defaultValue="active" onChange={(e) => setType(e.target.value)} required >
-                      <option value="1">Local</option>
+                      <option value="1" selected>Local</option>
                       <option value="2">Foregin</option>
                     </select>
                   </div>
@@ -137,7 +142,7 @@ const addCustomers = () => {
                       <option value="1">Select Countries</option>
                       {countries.map((option, index) => ( 
                           <option key={index} value={option.id}> 
-                              {option.countryName} 
+                              {option.country_name} 
                       </option> 
                       ))} 
                     </select>
@@ -170,7 +175,7 @@ const addCustomers = () => {
                     <option value="1">Select Countries</option>
                       {countries.map((option, index) => ( 
                           <option key={index} value={option.id}> 
-                              {option.countryName} 
+                              {option.country_name} 
                       </option> 
                       ))} 
                     </select>
@@ -186,7 +191,7 @@ const addCustomers = () => {
                   <IconFile className="w-5 h-5 ltr:mr-2 rtl:ml-2" />
                   Submit
                 </button>
-                <Link to="/pages/relationship/suppliers">
+                <Link to="/pages/relationship/customers">
                   <button type="button" className="btn btn-danger gap-2" >
                   <IconTrashLines className="w-5 h-5 ltr:mr-2 rtl:ml-2" />
                   Cancel

@@ -7,7 +7,7 @@ from fastapi import File, UploadFile
 class User(Base):
     __tablename__="users"
     id=Column(Integer,primary_key=True,index=True)
-    user_img = Column(String(255),index=True)
+    user_img = Column(String(255),index=True, nullable=True)
     user_name = Column(String(255),unique=True,index=True)
     user_phone = Column(String(255),unique=True,index=True)
     user_email = Column(String(255),unique=True,index=True)
@@ -26,7 +26,7 @@ class UserCreateSchema(BaseModel):
     user_email:str
     user_password:str
     class Config:
-        orm_mode=True
+        from_attributes = True
 
 class UserSchema(BaseModel):
     id:int
@@ -36,7 +36,7 @@ class UserSchema(BaseModel):
     user_email:str
     user_password:str
     class Config:
-        orm_mode=True
+        from_attributes = True
 
 class TokenData(BaseModel):
     user_email: str | None = None
@@ -45,7 +45,7 @@ class TokenData(BaseModel):
 class UserInDB(BaseModel):
     user_password: str
     class Config:
-        orm_mode=True
+        from_attributes = True
 
 
 class SigninRequest(BaseModel):

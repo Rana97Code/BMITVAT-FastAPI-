@@ -21,7 +21,7 @@ const editSuupliers = () => {
 
   interface countrys {
     id: number;
-    countryName: string;
+    country_name: string;
   }
   const [countries, setAllCountry] = useState<countrys[]>([]);
 
@@ -38,14 +38,14 @@ const editSuupliers = () => {
               // setInitialRecords(response.data);
               const data = response.data;
               console.log(data);
-              setName(data.supplierName)
-              setEmail(data.supplierEmail)
-              setPhone(data.supplierPhone)
-              setAddress(data.supplierAddress)
-              setType(data.supplierType)
-              setCountry(data.countryId)
-              setBin(data.supplierBinNid)
-              setTin(data.supplierTin)
+              setName(data.supplier_name)
+              setEmail(data.supplier_email)
+              setPhone(data.supplier_phone)
+              setType(data.supplier_type)
+              setCountry(data.country_id)
+              setAddress(data.s_address)
+              setBin(data.s_bin_nid)
+              setTin(data.s_tin)
 
           })
           .catch((error) => {
@@ -58,8 +58,11 @@ const editSuupliers = () => {
 
     axios.get(`${baseUrl}/country/all_country`,{headers})
         .then((response) => {
+          if (Array.isArray(response.data)) {
             setAllCountry(response.data);
-        })
+          } else {
+            throw new Error('Response data is not an array');
+        }        })
         .catch((error) => {
             console.error('Error fetching data:', error);
         });
@@ -73,28 +76,24 @@ const editSuupliers = () => {
     e.preventDefault();
 
       const supplier = {
-        supplierName: name,
-        supplierEmail:email,
-        supplierPhone: phone,
-        supplierAddress: address,
-        supplierType: type,
-        countryId: country,
-        supplierBinNid: bin,
-        supplierTin: tin,
-        createdBy: '1',
+        supplier_name: name,
+        supplier_email:email,
+        supplier_phone: phone,
+        supplier_type: type,
+        country_id: country,
+        s_address: address,
+        s_bin_nid: bin,
+        s_tin: tin,
+        status: '1',
+        user_id: 1
       }
 
-        console.log(supplier);
 
-      const token = localStorage.getItem('Token');
-      if(token){
-          const bearer = JSON.parse(token);
-          const headers= { Authorization: `Bearer ${bearer}` }
-
+      if(user){
 
       try {
           console.log(supplier);
-         await axios.put(`${baseUrl}/supplier/update_supplier/${params.id}`, supplier, {headers})
+         await axios.put(`${user.base_url}/supplier/update_supplier/${params.id}`, supplier, {headers})
         .then(function (response){
           navigate("/pages/relationship/suppliers");
         })
@@ -156,7 +155,7 @@ const editSuupliers = () => {
                       <option value="1">Select Countries</option>
                       {countries.map((option, index) => ( 
                           <option key={index} value={option.id}> 
-                              {option.countryName} 
+                              {option.country_name} 
                       </option> 
                       ))} 
                     </select>                  

@@ -20,15 +20,11 @@ import UserContex from '../../../context/UserContex';
 
 const index = () => {
     const user = useContext(UserContex);
-    const baseUrl= user.base_url;
     const headers= user.headers;
 
     useEffect(()=> {
-
         if(user){
-
-
-        axios.get(`${baseUrl}/customer/all_customer`,{headers})
+            axios.get(`${user.base_url}/customer/all_customer`,{headers})
             .then((response) => {
                 setInitialRecords(response.data);
             })
@@ -58,10 +54,10 @@ const index = () => {
     interface RecordWithIndex {
         [key: string]: any; // Define the type for each property in the record
         index: number; // Add index property
-        customerName: string;
-        customerEmail: string;
-        customerPhone: string;
-        customerAddress: string;
+        customer_name: string;
+        customer_email: string;
+        customer_phone: string;
+        c_address: string;
     }
 
     //For Index Number
@@ -85,10 +81,10 @@ const index = () => {
             return initialRecords.filter((item: any) => {
                 return (
                     item.serial.toString().includes(search.toLowerCase()) ||
-                    item.customerName.toLowerCase().includes(search.toLowerCase()) ||
-                    item.customerEmail.toLowerCase().includes(search.toLowerCase()) ||
-                    item.customerPhone.toLowerCase().includes(search.toLowerCase()) ||
-                    item.customerAddress.toLowerCase().includes(search.toLowerCase()) ||
+                    item.customer_name.toLowerCase().includes(search.toLowerCase()) ||
+                    item.customer_email.toLowerCase().includes(search.toLowerCase()) ||
+                    item.customer_phone.toLowerCase().includes(search.toLowerCase()) ||
+                    item.c_address.toLowerCase().includes(search.toLowerCase()) ||
                     item.action.toLowerCase().includes(search.toLowerCase())
                 );
             });
@@ -231,10 +227,10 @@ const index = () => {
                         records={recordsDataWithIndex}
                         columns={[
                             { accessor: 'index', title: 'Serial', sortable: true },
-                            { accessor: 'customerName', title: 'Customer Name', sortable: true },
-                            { accessor: 'customerEmail', title: 'Customer Email', sortable: true },
-                            { accessor: 'customerPhone', title: 'Customer Phone', sortable: true },
-                            { accessor: 'customerAddress', title: 'Customer Address', sortable: true },
+                            { accessor: 'customer_name', title: 'Customer Name', sortable: true },
+                            { accessor: 'customer_email', title: 'Customer Email', sortable: true },
+                            { accessor: 'customer_phone', title: 'Customer Phone', sortable: true },
+                            { accessor: 'c_address', title: 'Customer Address', sortable: true },
                             {
                                 accessor: 'action',
                                 title: 'Action',

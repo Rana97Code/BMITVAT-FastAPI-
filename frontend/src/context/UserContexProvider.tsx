@@ -53,7 +53,7 @@ const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({ children
                     } catch (error) {
                         console.error("Error decoding token:", error);
                         navigate("/");
-                        return;
+                        return false;
                     }
 
                 }

@@ -5,6 +5,10 @@ import { Link, useNavigate, useParams  } from "react-router-dom";
 import axios from 'axios';
 import UserContex from '../../../context/UserContex';
 
+interface countrys {
+  id: number;
+  country_name: string;
+}
 const editCustomers = () => {
 
   const [name, setName] = useState("");
@@ -18,37 +22,31 @@ const editCustomers = () => {
   const [bin, setBin] = useState("");
   const [tin, setTin] = useState("");
 
-  interface countrys {
-    id: number;
-    countryName: string;
-  }
   const [countries, setAllCountry] = useState<countrys[]>([]);
   const navigate = useNavigate();
   const params = useParams();
   const user = useContext(UserContex);
-  const baseUrl= user.base_url;
+  const headers= user.headers;
+
 
   const getCustomer = async()=>{
-    const token = localStorage.getItem('Token');
-    if(token){
-        const bearer = JSON.parse(token);
-        const headers= { Authorization: `Bearer ${bearer}` }
+    if(user){
 
-    await axios.get(`${baseUrl}/bmitvat/api/customer/get_customer/${params.id}`,{headers})
+    await axios.get(`${user.base_url}/customer/get_customer/${params.id}`,{headers})
         .then((response) => {
             // setInitialRecords(response.data);
             const data = response.data;
             console.log(data);
-            setName(data.customerName)
-            setEmail(data.customerEmail)
-            setPhone(data.customerPhone)
-            setAddress(data.customerAddress)
-            setType(data.customerType)
-            setCountry(data.countryId)
-            setBin(data.customerBinNid)
-            setTin(data.customerTin)
-            setScId(data.shippingCountryId)
-            setScAddress(data.shippingAddress)
+            setName(data.customer_name)
+            setEmail(data.customer_email)
+            setPhone(data.customer_phone)
+            setType(data.customer_type)
+            setCountry(data.country_id)
+            setAddress(data.c_address)
+            setScId(data.shipping_country_id)
+            setScAddress(data.shipping_address)
+            setBin(data.c_bin_nid)
+            setTin(data.c_tin)
 
         })
         .catch((error) => {
@@ -64,9 +62,13 @@ const editCustomers = () => {
         const bearer = JSON.parse(token);
         const headers= { Authorization: `Bearer ${bearer}` }
 
-    axios.get(`${baseUrl}/bmitvat/api/country/all_country`,{headers})
+    axios.get(`${user.base_url}/country/all_country`,{headers})
         .then((response) => {
+          if (Array.isArray(response.data)) {
             setAllCountry(response.data);
+          } else {
+            throw new Error('Response data is not an array');
+        }
         })
         .catch((error) => {
             console.error('Error fetching data:', error);
@@ -76,34 +78,33 @@ const editCustomers = () => {
     getCustomer();
     handleSubmit;
 
-}, []);
+}, [user]);
 
   const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const customer = {
-      customerName: name,
-      customerEmail: email,
+      customer_name: name,
+      customer_email: email,
       customerPhone: phone,
-      customerAddress: address,
-      customerType: type,
-      countryId: country,
-      shippingAddress: shippingAdd,
-      shippingCountryId: shippingCid,
-      customerBinNid: bin,
-      customerTin: tin,
-      createdBy: '1',
+      customer_phone: address,
+      customer_type: type,
+      country_id: country,
+      c_address: address,
+      shipping_country_id: shippingCid,
+      shipping_address: shippingAdd,
+      c_bin_nid: bin,
+      c_tin: tin,
+      status: '1',
+      user_id: 1
     }
 
     console.log(customer);
 
-    const token = localStorage.getItem('Token');
-    if(token){
-      const bearer1 = JSON.parse(token);
-    const headers= { Authorization: `Bearer ${bearer1}` }
+    if(user){
 
     try {
-       await axios.put(`${baseUrl}/bmitvat/api/customer/update_customer/${params.id}`, customer, {headers})
+       await axios.put(`${user.base_url}/customer/update_customer/${params.id}`, customer, {headers})
         .then(function (response) {
           if(response){
             navigate("/pages/relationship/customers");
@@ -168,7 +169,7 @@ const editCustomers = () => {
                       <option value="1">Select Countries</option>
                       {countries.map((option, index) => ( 
                           <option key={index} value={option.id}> 
-                              {option.countryName} 
+                              {option.country_name} 
                       </option> 
                       ))} 
                     </select>
@@ -197,11 +198,11 @@ const editCustomers = () => {
                 <div>
                   <label htmlFor="shippingCountryId">Shipping Country</label>
                   <div>
-                    <select className="form-select text-dark " value={shippingCid} onChange={(e) => setScId(e.target.value)} required >
+                    <select className="form-select text-black " value={shippingCid} onChange={(e) => setScId(e.target.value)} required >
                     <option value="1">Select Countries</option>
                       {countries.map((option, index) => ( 
                           <option key={index} value={option.id}> 
-                              {option.countryName} 
+                              {option.country_name} 
                       </option> 
                       ))} 
                     </select>

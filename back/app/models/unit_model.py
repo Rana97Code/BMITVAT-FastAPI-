@@ -20,7 +20,7 @@ class UnitCreateSchema(BaseModel):
     unit_details:str
     unit_status:int
     class Config:
-        orm_mode=True
+        from_attributes = True
 
 class UnitSchema(BaseModel):
     id:int
@@ -29,7 +29,7 @@ class UnitSchema(BaseModel):
     unit_status:int
 
     class Config:
-        orm_mode=True
+        from_attributes = True
 
 class UnitBase(BaseModel):
     unit_name:str
@@ -37,4 +37,4 @@ class UnitBase(BaseModel):
     unit_status:int
 
     class Config:
-        orm_mode=True
+        from_attributes = True

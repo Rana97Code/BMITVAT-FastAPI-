@@ -66,6 +66,7 @@ async def create(user:UserCreateSchema,db:Session=Depends(get_db)): #data field 
     #for password hashing
     hash_password = _hash.bcrypt.hash(user.user_password)
     srv=User(user_name=user.user_name,user_phone=user.user_phone,user_email=user.user_email,user_password=hash_password,confirm_password=hash_password)
+
     db.add(srv)
     db.commit()
     db.refresh(srv)

@@ -55,11 +55,16 @@ const index = () => {
     interface RecordWithIndex {
         [key: string]: any; // Define the type for each property in the record
         index: number; // Add index property
-        supplierName: string;
-        supplierEmail: string;
-        supplierPhone: string;
-        supplierAddress: string;
-        supplierType: string;
+        supplier_name: string;
+        supplier_email: string;
+        supplier_phone: string;
+        supplier_type: string;
+        country_id: string;
+        s_address: string,
+        s_bin_nid: string,
+        s_tin: string,
+        status: string,
+ 
     }
 
     //For Index Number
@@ -83,11 +88,11 @@ const index = () => {
             return initialRecords.filter((item: any) => {
                 return (
                     item.serial.toString().includes(search.toLowerCase()) ||
-                    item.supplierName.toLowerCase().includes(search.toLowerCase()) ||
-                    item.supplierEmail.toLowerCase().includes(search.toLowerCase()) ||
-                    item.supplierPhone.toLowerCase().includes(search.toLowerCase()) ||
-                    item.supplierAddress.toLowerCase().includes(search.toLowerCase()) ||
-                    item.supplierType.tooltip.toLowerCase().includes(search.toLowerCase()) ||
+                    item.supplier_name.toLowerCase().includes(search.toLowerCase()) ||
+                    item.supplier_email.toLowerCase().includes(search.toLowerCase()) ||
+                    item.supplier_phone.toLowerCase().includes(search.toLowerCase()) ||
+                    item.s_address.toLowerCase().includes(search.toLowerCase()) ||
+                    item.supplier_type.tooltip.toLowerCase().includes(search.toLowerCase()) ||
                     item.action.toLowerCase().includes(search.toLowerCase())
                 );
             });
@@ -230,12 +235,12 @@ const index = () => {
                         records={recordsDataWithIndex}
                         columns={[
                             { accessor: 'index', title: 'Serial', sortable: true },
-                            { accessor: 'supplierName', title: 'Supplier Name', sortable: true },
-                            { accessor: 'supplierEmail', title: 'Supplier Email', sortable: true },
-                            { accessor: 'supplierPhone', title: 'Supplier Phone', sortable: true },
-                            { accessor: 'supplierAddress', title: 'Supplier Address', sortable: true },
+                            { accessor: 'supplier_name', title: 'Supplier Name', sortable: true },
+                            { accessor: 'supplier_email', title: 'Supplier Email', sortable: true },
+                            { accessor: 'supplier_phone', title: 'Supplier Phone', sortable: true },
+                            { accessor: 's_address', title: 'Supplier Address', sortable: true },
                             {
-                                accessor: 'supplierType',
+                                accessor: 'supplier_type',
                                 title: 'Status',
                                 sortable: true,
                                 render: ({ status }) => <span className={`p-2 badge badge-outline-success `}>{status}</span>,
