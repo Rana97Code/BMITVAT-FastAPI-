@@ -36,11 +36,15 @@ const Index = () => {
         series: [
             {
                 name: 'Income',
-                data: [16800, 16800, 15500, 17800, 15500, 17000, 19000, 16000, 15000, 17000, 14000, 17000],
+                data: [16800, 16800, 15500, 27800, 15500, 17000, 19000, 16000, 15000, 17000, 14000, 17000],
             },
             {
                 name: 'Expenses',
-                data: [16500, 17500, 16200, 17300, 16000, 19500, 16000, 17000, 16000, 19000, 18000, 19000],
+                data: [16500, 17500, 16200, 17300, 16000, 19500, 16000, 17000, 16000, 2000, 18000, 19000],
+            },
+            {
+                name: 'Profit',
+                data: [26500, 17500, 16200, 7300, 16000, 19500, 36000, 17000, 16000, 29000, 18000, 19000],
             },
         ],
         options: {
@@ -72,20 +76,27 @@ const Index = () => {
                 left: -7,
                 top: 22,
             },
-            colors: isDark ? ['#2196F3', '#E7515A'] : ['#1B55E2', '#E7515A'],
+            colors: isDark ? ['#2196F3', '#E7515A', '#07515A'] : ['#1B55E2', '#E7515A', '#07515A'],
             markers: {
                 discrete: [
                     {
                         seriesIndex: 0,
-                        dataPointIndex: 6,
+                        dataPointIndex: 3,
                         fillColor: '#1B55E2',
                         strokeColor: 'transparent',
                         size: 7,
                     },
                     {
                         seriesIndex: 1,
-                        dataPointIndex: 5,
+                        dataPointIndex: 9,
                         fillColor: '#E7515A',
+                        strokeColor: 'transparent',
+                        size: 7,
+                    },
+                    {
+                        seriesIndex: 2,
+                        dataPointIndex: 6,
+                        fillColor: '#07515A',
                         strokeColor: 'transparent',
                         size: 7,
                     },
@@ -440,7 +451,7 @@ const Index = () => {
                             </div>
                         </div>
                         <p className="text-lg dark:text-white-light/90">
-                            Total Profit <span className="text-primary ml-2">Tk10,840</span>
+                            Total Profit <span className="text-primary ml-2">Tk5,30,677</span>
                         </p>
                         <div className="relative">
                             <div className="bg-white dark:bg-black rounded-lg overflow-hidden">
