@@ -1,16 +1,17 @@
-import React, { useState,useEffect } from 'react';
+import React, { useContext,useState,useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import IconFile from '../../../components/Icon/IconFile';
 import IconTrashLines from '../../../components/Icon/IconTrashLines';
 import axios from 'axios';
-
+import UserContext from '../../../context/UserContex';
 
 const addItem = () => {
-  const [item_name, setName] = useState("");
-  const [unitId, setUnit] = useState("");
-  const [hsCodeId, setHscodeId] = useState("");
-  const [itemType, setType] = useState("");
-  const [status, setStatus] = useState("");
+
+  const user = useContext(UserContext);
+  const headers= user.headers;
+  const navigate = useNavigate();
+
+
 
   interface units {
     id: number;
@@ -18,35 +19,43 @@ const addItem = () => {
   }
   interface Hscode {
     id: number;
-    hsCode: string;
+    hs_code: string;
     description: string;
-    descriptionBn: string;
-    calculateYear: string;
+    description_bn: string;
+    calculate_year: string;
   }
 
 const [allUnits, setGetAllUnits] = useState<units[]>([]);
 const [allHscode, setGetAllHscode] = useState<Hscode[]>([]);
-
-  const navigate = useNavigate();
-
+const [item_name, setName] = useState("");
+const [unitId, setUnit] = useState("");
+const [hsCodeId, setHscodeId] = useState("");
+const [itemType, setType] = useState("");
+const [status, setStatus] = useState("");
 
   useEffect(() => {
-    const token = localStorage.getItem('Token');
-    if(token){
-          const bearer = JSON.parse(token);
-          const headers= { Authorization: `Bearer ${bearer}` }
+    if(user){
+
                 // for Authorised Person
-            axios.get('http://127.0.0.1:8000/bmitvat/api/allunits',{headers})
+            axios.get(`${user.base_url}/allunits`,{headers})
             .then((response) => {
-                setGetAllUnits(response.data);
+                if (Array.isArray(response.data)) {
+                  setGetAllUnits(response.data);
+                } else {
+                  throw new Error('Response data is not an array');
+                }
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
 
             });
-            axios.get('http://127.0.0.1:8080/bmitvat/api/hs_code/all_hs-code',{headers})
+            axios.get(`${user.base_url}/hs_code/all_hs_code`,{headers})
             .then((response) => {
-                setGetAllHscode(response.data);
+                if (Array.isArray(response.data)) {
+                  setGetAllHscode(response.data);
+                } else {
+                  throw new Error('Response data is not an array');
+                }
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
@@ -55,7 +64,7 @@ const [allHscode, setGetAllHscode] = useState<Hscode[]>([]);
           }
 
       handleSubmit;
-  }, []);
+  }, [user]);
 
   const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -76,24 +85,22 @@ const [allHscode, setGetAllHscode] = useState<Hscode[]>([]);
 
     const items = {
       item_name: item_name,
-      unitId: unitId,
-      hsCode: hs_code,
-      hsCodeId: hs_code_id,
-      itemType: itemType,
-      stockStatus: '0',
+      item_type: itemType,
+      hs_code: hs_code,
+      hs_code_id: hs_code_id,
+      unit_id: unitId,
+      stock_status: '0',
       status: status,
-      calculateYear: year,
-      createdBy: '0',
-      updatedBy: '0'
+      calculate_year: year,
+      created_by: '0',
+      updated_by: null
     }
+    console.log(items);
 
-    const token = localStorage.getItem('Token');
-    if(token){
-      const bearer1 = JSON.parse(token);
-    const headers= { Authorization: `Bearer ${bearer1}` }
+    if(user){
 
     try {
-       await axios.post("http://localhost:8080/bmitvat/api/item/add-item", items, {headers})
+       await axios.post(`${user.base_url}/item/add_item`, items, {headers})
         .then(function (response) {
           if(response){
             navigate("/pages/inventory/items");
@@ -152,8 +159,8 @@ const [allHscode, setGetAllHscode] = useState<Hscode[]>([]);
                   <select className="form-select text-dark col-span-4 text-base" onChange={(e) => setHscodeId(e.target.value)} required>
                     <option >Select HS-CODE</option>
                     {allHscode.map((option, index) => (
-                        <option key={index} value={option.id+'/'+option.calculateYear+'#'+option.hsCode}>
-                            {option.hsCode + ' (' + option.descriptionBn +'/ '+ option.description +')'+ '('+ option.calculateYear +')'}
+                        <option key={index} value={option.id+'/'+option.calculate_year+'#'+option.hs_code}>
+                            {option.hs_code + ' (' + option.description +'/ '+ option.description_bn +')'+ '('+ option.calculate_year +')'}
                         </option>
                     ))}
                   </select>

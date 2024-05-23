@@ -8,6 +8,8 @@ from app.routes.country_route import country_router;
 from app.routes.relationship.customer_router import customer_router;
 from app.routes.relationship.supplier_router import supplier_router;
 from app.routes.general_settings.hscode_router import hscode_route;
+from app.routes.inventory.item_router import item_route;
+
 
 Base.metadata.create_all(bind=engine)
 
@@ -19,6 +21,7 @@ def include_router(app):
     app.include_router(supplier_router)
     app.include_router(hscode_route)
     app.include_router(unit_router)
+    app.include_router(item_route)
 
 
 origins = [

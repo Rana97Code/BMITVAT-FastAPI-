@@ -1,40 +1,30 @@
 import React from 'react';
 import { DataTable, DataTableSortStatus } from 'mantine-datatable';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import sortBy from 'lodash/sortBy';
 import { useDispatch } from 'react-redux';
 import { setPageTitle } from '../../../store/themeConfigSlice';
+import axios from 'axios';
+import UserContex from '../../../context/UserContex';
 
-
-
-const rowData = [
-    {
-        serial: 1,
-        hsCode: 'S00110',
-        description: 'নন এসি হোটেল',
-        cd: 0.00,
-        sd: 0.00,
-        vat: 7.50,
-        at: 0.00,
-        year: 2022,
-    },
-    {
-        serial: 2,
-        hsCode: 'S00111',
-        description: 'এসি হোটেল',
-        cd: 0.00,
-        sd: 0.00,
-        vat: 15.00,
-        at: 0.00,
-        year: 2022,
-    },
-    
-];
-
-const col = ['serial', ' hsCode', 'description', 'cd', 'sd', 'vat', 'at', 'year' ];
 
 const index = () => {
+    const user = useContext(UserContex);
+    const headers= user.headers;
 
+    useEffect(()=> {
+        if(user){
+            axios.get(`${user.base_url}/hs_code/all_hs_code`,{headers})
+            .then((response) => {
+                setInitialRecords(response.data);
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+
+            });
+
+        }
+    },[user]);
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(setPageTitle('Export Table'));
@@ -42,11 +32,24 @@ const index = () => {
     const [page, setPage] = useState(1);
     const PAGE_SIZES = [10, 20, 30, 50, 100];
     const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
-    const [initialRecords, setInitialRecords] = useState(sortBy(rowData, 'serial'));
+    const [initialRecords, setInitialRecords] = useState([]);
     const [recordsData, setRecordsData] = useState(initialRecords);
 
     const [search, setSearch] = useState('');
     const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({ columnAccessor: 'serial', direction: 'asc' });
+
+
+    interface RecordWithIndex {
+        [key: string]: any; // Define the type for each property in the record
+        index: number; // Add index property
+
+    }
+
+    //For Index Number
+    const recordsDataWithIndex: RecordWithIndex[] = recordsData.map((record: RecordWithIndex, index: number) => ({
+        ...record,
+        index: index + 1 
+    }));
 
     useEffect(() => {
         setPage(1);
@@ -60,16 +63,16 @@ const index = () => {
 
     useEffect(() => {
         setInitialRecords(() => {
-            return rowData.filter((item: any) => {
+            return initialRecords.filter((item: any) => {
                 return (
                     item.serial.toString().includes(search.toLowerCase()) ||
-                    item.hsCode.toLowerCase().includes(search.toLowerCase()) ||
+                    item.hs_code.toLowerCase().includes(search.toLowerCase()) ||
                     item.description.toLowerCase().includes(search.toLowerCase()) ||
-                    item.cd.toString().toLowerCase().includes(search.toLowerCase()) ||
-                    item.sd.toString().toLowerCase().includes(search.toLowerCase()) ||
-                    item.vat.toString().toLowerCase().includes(search.toLowerCase()) ||
-                    item.at.toString().toLowerCase().includes(search.toLowerCase()) ||
-                    item.year.toString().toLowerCase().includes(search.toLowerCase())
+                    item.cd.any().toLowerCase().includes(search.toLowerCase()) ||
+                    item.sd.any().toLowerCase().includes(search.toLowerCase()) ||
+                    item.vat.any().toLowerCase().includes(search.toLowerCase()) ||
+                    item.at.any().toLowerCase().includes(search.toLowerCase()) ||
+                    item.calculate_year.any().toLowerCase().includes(search.toLowerCase())
                 );
             });
         });
@@ -80,7 +83,6 @@ const index = () => {
         setInitialRecords(sortStatus.direction === 'desc' ? data.reverse() : data);
         setPage(1);
     }, [sortStatus]);
-    const header = ['Serial', 'HS-Code', 'Description', 'CD', 'SD', 'VAT', 'AT','Year' ];
 
     return (
         <div>
@@ -94,17 +96,17 @@ const index = () => {
                 <DataTable
                         highlightOnHover
                         className="whitespace-nowrap table-hover"
-                        records={recordsData}
+                        records={recordsDataWithIndex}
                         columns={[
-                            { accessor: 'serial', title: 'Serial', sortable: true },
-                            { accessor: 'hsCode', title: 'HS-Code', sortable: true },
+                            { accessor: 'index', title: 'Serial', sortable: true },
+                            { accessor: 'hs_code', title: 'HS-Code', sortable: true },
                             { accessor: 'description', title: 'Description', sortable: true },
                             { accessor: 'cd', title: 'CD', sortable: true },
                             { accessor: 'sd', title: 'SD', sortable: true },
                             { accessor: 'vat', title: 'CD', sortable: true },
                             { accessor: 'cd', title: 'VAT', sortable: true },
                             { accessor: 'at', title: 'AT', sortable: true },
-                            { accessor: 'year', title: 'Year', sortable: true },
+                            { accessor: 'calculate_year', title: 'Year', sortable: true },
                         ]}
                         totalRecords={initialRecords.length}
                         recordsPerPage={pageSize}

@@ -18,9 +18,9 @@ hscode_route = APIRouter()
 async def create(hscode:HscodeCreateSchema,db:Session=Depends(get_db)): 
 
     srv=Hscode(hscode=hscode.hs_code, description=hscode.description,cd=hscode.cd,sd=hscode.sd, vat=hscode.vat,
-                ait=hscode.ait, rd=hscode.rd,at=hscode.at,tti=hscode.tti, service_schedule=hscode.service_schedule, schedule=hscode.schedule,
-                vat_type=hscode.vat_type,type=hscode.type,year_start=hscode.year_start, year_end=hscode.year_end,
-                calculate_year=hscode.calculate_year, keycode=hscode.keycode)
+                ait=hscode.ait, rd=hscode.rd,at=hscode.at,tti=hscode.tti,schedule=hscode.schedule,
+                user_id=hscode.user_id,delete_status=hscode.delete_status,vat_type=hscode.vat_type,type=hscode.type,
+                year_start=hscode.year_start, year_end=hscode.year_end, calculate_year=hscode.calculate_year, keycode=hscode.keycode)
     db.add(srv)
     db.commit()
     return {"Message":"Successfully Add"}
@@ -47,9 +47,10 @@ async def create(hs_code:List[HscodeCreateSchema], request: Request, db:Session=
     for i in range(len(name)):
         print(i)
         unt.append({
-            'heading'       :name[i]["heading"],
+            # 'heading'       :name[i]["heading"],
             'hs_code'       :name[i]["hs_code"],
             'description'   :name[i]["description"],
+            # 'description_bn':name[i]["description_bn"],
             'cd'            :name[i]["cd"],
             'sd'            :name[i]["sd"],
             'vat'           :name[i]["vat"],
@@ -57,8 +58,11 @@ async def create(hs_code:List[HscodeCreateSchema], request: Request, db:Session=
             'rd'            :name[i]["rd"],
             'at'            :name[i]["at"],
             'tti'           :name[i]["tti"],
-            'service_schedule':name[i]["service_schedule"],
+            # 'service_schedule':name[i]["service_schedule"],
             'schedule'      :name[i]["schedule"],
+            'user_id'       :name[i]["user_id"],
+            'delete_status' :name[i]["delete_status"],
+            # 'delete_date'   :name[i]["delete_date"],
             'vat_type'      :name[i]["vat_type"],
             'type'          :name[i]["type"],
             'year_start'    :name[i]["year_start"],
@@ -86,6 +90,7 @@ async def update_array(hs_code_id: str, request: Request, db:Session=Depends(get
         heading     = x["heading"],
         hs_code     =x["hs_code"],
         description =x["description"],
+        description_bn=x["description_bn"],
         cd          =x["cd"],
         sd          =x["sd"],
         vat         =x["vat"],
@@ -95,6 +100,9 @@ async def update_array(hs_code_id: str, request: Request, db:Session=Depends(get
         tti         =x["tti"],
         service_schedule =x["service_schedule"],
         schedule    =x["schedule"],
+        user_id     =x["user_id"],
+        delete_status=x["delete_status"],
+        delete_date =x["delete_date"],
         vat_type    =x["vat_type"],
         type        =x["type"],
         year_start  =x["year_start"],
@@ -106,6 +114,7 @@ async def update_array(hs_code_id: str, request: Request, db:Session=Depends(get
         uu.heading=heading
         uu.hs_code=hs_code
         uu.description=description
+        uu.description_bn=description_bn
         uu.cd=cd
         uu.sd=sd
         uu.vat=vat
@@ -115,6 +124,9 @@ async def update_array(hs_code_id: str, request: Request, db:Session=Depends(get
         uu.tti=tti
         uu.service_schedule=service_schedule
         uu.schedule=schedule
+        uu.user_id=user_id
+        uu.delete_status=delete_status
+        uu.delete_date=delete_date
         uu.vat_type=vat_type
         uu.type=type
         uu.year_start=year_start
