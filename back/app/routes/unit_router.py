@@ -38,7 +38,7 @@ async def get_itm(unit_id:int,db:Session=Depends(get_db)):
 async def update(unit_id:int,unit:UnitCreateSchema,db:Session=Depends(get_db)):
     try:
         u=db.query(Unit).filter(Unit.id==unit_id).first()
-        u.unit_name=unit.unit_name,
+        u.unit_name=unit.unit_name
         u.unit_details=unit.unit_details
         u.unit_status=unit.unit_status
         # print(jsonable_encoder(u))
